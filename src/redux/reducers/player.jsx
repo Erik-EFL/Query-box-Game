@@ -1,0 +1,22 @@
+import { LOGIN } from '../actions/actionsType';
+
+const INICIAL_STATE = {
+  nome: '',
+  image: '',
+  token: '',
+};
+
+const player = (state = INICIAL_STATE, action) => {
+  switch (action.type) {
+  case LOGIN:
+    return {
+      ...state,
+      email: action.email,
+      nome: action.nome,
+    };
+  default:
+    return state;
+  }
+};
+
+export default player;
