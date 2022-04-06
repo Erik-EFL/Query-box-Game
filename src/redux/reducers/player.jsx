@@ -3,7 +3,6 @@ import { LOGIN } from '../actions/actionsType';
 const INICIAL_STATE = {
   nome: '',
   image: '',
-  token: '',
 };
 
 const player = (state = INICIAL_STATE, action) => {
