@@ -32,8 +32,7 @@ class Login extends Component {
     this.setState({ [name]: value }, this.validate);
   };
 
-  handleClick = (event) => {
-    event.preventDefault();
+  handleClick = () => {
     const { user } = this.props;
     const { email, nome } = this.state;
     user(email, nome);

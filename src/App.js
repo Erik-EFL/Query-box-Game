@@ -13,7 +13,6 @@ export default function App() {
         <p>
           SUA VEZ
         </p>
-        <Login />
       </header>
       <Switch>
         <Route exact path="/questions" component={ Questions } />
