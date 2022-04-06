@@ -1,9 +1,10 @@
 import { API_REQUEST_SUCCESS, LOGIN, REQUEST_ERROR, TOKEN } from './actionsType';
 
-export const login = (email, nome) => ({
+export const login = (email, nome, image) => ({
   type: LOGIN,
   email,
   nome,
+  image,
 });
 
 export const tokenLogin = (token) => ({
