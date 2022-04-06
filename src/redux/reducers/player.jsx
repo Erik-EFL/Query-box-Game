@@ -12,6 +12,7 @@ const player = (state = INICIAL_STATE, action) => {
       ...state,
       email: action.email,
       nome: action.nome,
+      image: action.image,
     };
   default:
     return state;
