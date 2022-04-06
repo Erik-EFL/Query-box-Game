@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/Api';
+import settingsIcon from '../settings.png';
 
 class Login extends Component {
   constructor() {
@@ -46,6 +48,15 @@ class Login extends Component {
     return (
       <div>
         <div className="login-container">
+          <div className="settings-button">
+            <Link to="/settings">
+              <img
+                src={ settingsIcon }
+                data-testid="btn-settings"
+                alt="Ícone do botão configurações"
+              />
+            </Link>
+          </div>
           <form>
             <label htmlFor="nome">
               Nome:
