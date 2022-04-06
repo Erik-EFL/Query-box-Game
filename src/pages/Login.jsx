@@ -33,10 +33,10 @@ class Login extends Component {
   };
 
   handleClick = (event) => {
-    event.preventDefault();
-    const { user } = this.props;
+    const { user, history } = this.props;
     const { email, nome } = this.state;
     user(email, nome);
+    history.push('/teste');
   };
 
   render() {
@@ -65,16 +65,14 @@ class Login extends Component {
                 data-testid="input-gravatar-email"
               />
             </label>
-            <Link to="/questions">
-              <button
-                type="submit"
+            <button
+                type="button"
                 data-testid="btn-play"
                 onClick={ this.handleClick }
                 disabled={ btnDisabled }
               >
                 Play
-              </button>
-            </Link>
+             </button>
           </form>
         </div>
       </div>
