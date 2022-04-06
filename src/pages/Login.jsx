@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { login } from '../redux/actions/actions';
+import { login, tokenLogin } from '../redux/actions/actions';
+import fetchToken from '../Services/Api';
 
 class Login extends Component {
   constructor() {
@@ -32,11 +32,13 @@ class Login extends Component {
     this.setState({ [name]: value }, this.validate);
   };
 
-  handleClick = (event) => {
-    event.preventDefault();
-    const { user } = this.props;
+  handleClick = async () => {
+    const { user, history, token } = this.props;
     const { email, nome } = this.state;
+    const tokenAPI = await fetchToken();
     user(email, nome);
+    token(tokenAPI);
+    history.push('/questions');
   };
 
   render() {
@@ -65,16 +67,14 @@ class Login extends Component {
                 data-testid="input-gravatar-email"
               />
             </label>
-            <Link to="/questions">
-              <button
-                type="submit"
-                data-testid="btn-play"
-                onClick={ this.handleClick }
-                disabled={ btnDisabled }
-              >
-                Play
-              </button>
-            </Link>
+            <button
+              type="button"
+              data-testid="btn-play"
+              onClick={ this.handleClick }
+              disabled={ btnDisabled }
+            >
+              Play
+            </button>
           </form>
         </div>
       </div>
@@ -84,10 +84,12 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   user: (email, nome) => dispatch(login(email, nome)),
+  token: (tokenAPI) => dispatch(tokenLogin(tokenAPI)),
 });
 
 Login.propTypes = {
   user: PropTypes.func,
+  history: PropTypes.func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
