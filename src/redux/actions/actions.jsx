@@ -1,4 +1,6 @@
-import { API_REQUEST_SUCCESS, LOGIN, REQUEST_ERROR, TOKEN } from './actionsType';
+import {
+  API_REQUEST_SUCCESS, LOGIN, REQUEST_ERROR, TOKEN,
+} from './actionsType';
 
 export const login = (email, nome) => ({
   type: LOGIN,

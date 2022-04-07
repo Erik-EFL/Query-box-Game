@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login, tokenLogin } from '../redux/actions/actions';
-import fetchToken from '../Services/Api';
+import fetchToken from '../Services/fetchToken';
+import '../App.css';
+import logo from '../trivia.png';
 
 class Login extends Component {
   constructor() {
@@ -44,8 +46,12 @@ class Login extends Component {
   render() {
     const { btnDisabled } = this.state;
     return (
-      <div>
-        <div className="login-container">
+      <div className="App">
+        <main className="App-header">
+          <img src={ logo } className="App-logo" alt="logo" />
+          <p>
+            SUA VEZ
+          </p>
           <form>
             <label htmlFor="nome">
               Nome:
@@ -76,7 +82,7 @@ class Login extends Component {
               Play
             </button>
           </form>
-        </div>
+        </main>
       </div>
     );
   }
@@ -90,6 +96,7 @@ const mapDispatchToProps = (dispatch) => ({
 Login.propTypes = {
   user: PropTypes.func,
   history: PropTypes.func,
+  token: PropTypes.func,
 }.isRequired;
 
 export default connect(null, mapDispatchToProps)(Login);
