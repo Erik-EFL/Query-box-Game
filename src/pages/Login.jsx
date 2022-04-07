@@ -1,12 +1,11 @@
+import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import md5 from 'crypto-js/md5';
+import '../App.css';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
-import '../App.css';
-import logo from '../trivia.png';
 import settingsIcon from '../settings.png';
 
 class Login extends Component {
