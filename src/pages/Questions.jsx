@@ -63,7 +63,7 @@ class Questions extends Component {
   render() {
     /* const { indexDQ } = this.state; */
     const { questions } = this.props;
-
+    const { player: { nome, image } } = this.props;
     console.log(questions);
 
     /*     const incorrect = questions.map((item, index) => ({
@@ -97,6 +97,18 @@ class Questions extends Component {
             </button>
           ))
         )} */}
+        <div>
+          <header>
+            <img
+              src={ image }
+              data-testid="header-profile-picture"
+              alt="profile-avatar"
+            />
+            <span data-testid="header-player-name">{nome}</span>
+            <span data-testid="header-score">0</span>
+          </header>
+          Questions
+        </div>
       </div>
     );
   }
@@ -104,6 +116,7 @@ class Questions extends Component {
 
 const mapStateToProps = (state) => ({
   state: state.questions,
+  player: state.player,
   questions: state.questions.questions.results,
 });
 
@@ -114,6 +127,7 @@ const mapDispatchToProps = (dispatch) => ({
 Questions.propTypes = {
   receiveNewToken: PropTypes.func,
   questions: PropTypes.array,
+  player: PropTypes.object,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

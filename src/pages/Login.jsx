@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import md5 from 'crypto-js/md5';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
 import '../App.css';
 import logo from '../trivia.png';
+import settingsIcon from '../settings.png';
 
 class Login extends Component {
   constructor() {
@@ -38,20 +41,32 @@ class Login extends Component {
     const { user, history, token } = this.props;
     const { email, nome } = this.state;
     const tokenAPI = await fetchToken();
-    user(email, nome);
+    const image = this.gravatarHash(email);
+    user(email, nome, image);
     token(tokenAPI);
     history.push('/questions');
   };
 
+  gravatarHash = (userEmail) => {
+    const convertEmail = md5(userEmail).toString();
+    const gravatarUrl = `https://www.gravatar.com/avatar/${convertEmail}`;
+    return gravatarUrl;
+  }
+
   render() {
     const { btnDisabled } = this.state;
     return (
-      <div className="App">
-        <main className="App-header">
-          <img src={ logo } className="App-logo" alt="logo" />
-          <p>
-            SUA VEZ
-          </p>
+      <div>
+        <div className="login-container">
+          <div className="settings-button">
+            <Link to="/settings">
+              <img
+                src={ settingsIcon }
+                data-testid="btn-settings"
+                alt="Ícone do botão configurações"
+              />
+            </Link>
+          </div>
           <form>
             <label htmlFor="nome">
               Nome:
@@ -82,14 +97,14 @@ class Login extends Component {
               Play
             </button>
           </form>
-        </main>
+        </div>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (email, nome) => dispatch(login(email, nome)),
+  user: (email, nome, image) => dispatch(login(email, nome, image)),
   token: (tokenAPI) => dispatch(tokenLogin(tokenAPI)),
 });
 
