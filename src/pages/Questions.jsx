@@ -67,6 +67,7 @@ class Questions extends Component {
         key={ element }
         data-testid={ `wrong-answer-${index}` }
         type="button"
+        className="incorrect-answer"
       >
         {element}
 
@@ -77,6 +78,7 @@ class Questions extends Component {
         key="correct"
         data-testid="correct-answer"
         type="button"
+        className="correct-answer"
       >
         {question.correct_answer}
 
