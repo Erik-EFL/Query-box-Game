@@ -11,6 +11,9 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      indexInit: 0,
+      playerWrong: false,
+      playerRight: false,
     };
   }
 
@@ -22,7 +25,7 @@ class Questions extends Component {
    handleClick = () => {
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo });
+     this.setState({ indexDQ: valorNovo, playerRight: false, playerWrong: false });
    }
 
    /*   receiveQuestions = async () => {
@@ -61,13 +64,22 @@ class Questions extends Component {
     };
   } */
 
+  handleClickAnswer = () => {
+    this.setState({
+      playerRight: true,
+      playerWrong: true,
+    });
+  }
+
   questionAnswerPrinter = (question) => {
+    const { playerRight, playerWrong, indexDQ, indexInit } = this.state;
     const botoes = question.incorrect_answers.map((element, index) => (
       <button
         key={ element }
         data-testid={ `wrong-answer-${index}` }
         type="button"
-        className="incorrect-answer"
+        onClick={ this.handleClickAnswer }
+        className={ playerWrong ? 'incorrect-answer' : '' }
       >
         {element}
 
@@ -78,13 +90,18 @@ class Questions extends Component {
         key="correct"
         data-testid="correct-answer"
         type="button"
-        className="correct-answer"
+        onClick={ this.handleClickAnswer }
+        className={ playerRight ? 'correct-answer' : '' }
       >
         {question.correct_answer}
 
       </button>,
     );
-    this.shuffle(botoes);
+    const proxIndex = indexInit + 1;
+    if (indexInit === indexDQ) {
+      this.shuffle(botoes);
+      this.setState({ indexInit: proxIndex });
+    }
     return botoes;
   }
 
