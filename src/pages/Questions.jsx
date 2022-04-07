@@ -61,7 +61,7 @@ class Questions extends Component {
     };
   } */
 
-  questionAsnwerPrinter = (question) => {
+  questionAnswerPrinter = (question) => {
     const botoes = question.incorrect_answers.map((element, index) => (
       <button
         key={ element }
@@ -75,7 +75,7 @@ class Questions extends Component {
     botoes.push(
       <button
         key="correct"
-        data-testid="correct-asnwer"
+        data-testid="correct-answer"
         type="button"
       >
         {question.correct_answer}
@@ -134,7 +134,7 @@ class Questions extends Component {
               <p
                 data-testid="answer-options"
               >
-                {this.questionAsnwerPrinter(questions[indexDQ])}
+                {this.questionAnswerPrinter(questions[indexDQ])}
 
               </p>
             </>) : (console.log(questions)
