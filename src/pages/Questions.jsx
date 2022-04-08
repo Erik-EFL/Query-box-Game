@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Timer from '../components/Timer';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
+import { questionDone } from '../redux/actions/actions';
 import './Questions.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
@@ -11,9 +13,6 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
-      indexInit: 0,
-      playerWrong: false,
-      playerRight: false,
     };
   }
 
@@ -23,39 +22,30 @@ class Questions extends Component {
    }
 
    handleClick = () => {
+     const { questionResponded } = this.props;
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({
-       indexInit: valorNovo,
-       indexDQ: valorNovo,
-       playerRight: false,
-       playerWrong: false });
-     this.indexInitSumn();
-   }
-
-   indexInitSumn = () => {
-     const proxIndex = indexInit + 1;
-     this.setState({ indexInit: proxIndex });
+     this.setState({ indexDQ: valorNovo });
+     questionResponded(false);
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
 
   handleClickAnswer = () => {
-    this.setState({
-      playerRight: true,
-      playerWrong: true,
-    });
+    const { questionResponded } = this.props;
+    questionResponded(true);
   }
 
   questionAnswerPrinter = (question) => {
-    const { playerRight, playerWrong, indexDQ, indexInit } = this.state;
+    const { questionOk } = this.props;
     const botoes = question.incorrect_answers.map((element, index) => (
       <button
         key={ element }
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ playerWrong ? 'incorrect-answer' : '' }
+        className={ questionOk ? 'incorrect-answer' : '' }
+        disabled={ questionOk }
       >
         {element}
 
@@ -67,15 +57,14 @@ class Questions extends Component {
         data-testid="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ playerRight ? 'correct-answer' : '' }
+        className={ questionOk ? 'correct-answer' : '' }
+        disabled={ questionOk }
       >
         {question.correct_answer}
 
       </button>,
     );
-    if (indexInit === indexDQ) {
-      this.shuffle(botoes);
-    }
+    this.shuffle(botoes);
     return botoes;
   }
 
@@ -91,14 +80,29 @@ class Questions extends Component {
     const { indexDQ } = this.state;
     const { questions } = this.props;
     const { player: { nome, image } } = this.props;
-    console.log(questions);
 
     return (
       <div className="Questions">
+        <header className="user-header">
+          <img
+            src={ image }
+            data-testid="header-profile-picture"
+            alt="profile-avatar"
+          />
+          <div>
+            Jogador:
+            <h2 data-testid="header-player-name">{nome}</h2>
+          </div>
+          <div>
+            Pontuação:
+            <h2 data-testid="header-score">0</h2>
+          </div>
+        </header>
         <h1>Questions</h1>
         {
           questions ? (
             <>
+              <Timer />
               <p
                 data-testid="question-category"
               >
@@ -120,18 +124,6 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        <div>
-          <header>
-            <img
-              src={ image }
-              data-testid="header-profile-picture"
-              alt="profile-avatar"
-            />
-            <span data-testid="header-player-name">{nome}</span>
-            <span data-testid="header-score">0</span>
-          </header>
-          Questions
-        </div>
         <button type="submit" onClick={ this.handleClick }>Proxima pergunta</button>
       </div>
     );
@@ -142,16 +134,19 @@ const mapStateToProps = (state) => ({
   state: state.questions,
   player: state.player,
   questions: state.questions.questions.results,
+  questionOk: state.questionDone.responded,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   receiveQuestions: () => dispatch(questionDataThunk()),
+  questionResponded: (bool) => dispatch(questionDone(bool)),
 });
 
 Questions.propTypes = {
   receiveNewToken: PropTypes.func,
   questions: PropTypes.array,
   player: PropTypes.object,
+  questionOk: PropTypes.bool,
 }.isRequired;
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);

@@ -1,5 +1,5 @@
 import {
-  API_REQUEST_SUCCESS, LOGIN, REQUEST_ERROR, TOKEN,
+  API_REQUEST_SUCCESS, LOGIN, QUESTION_DONE, REQUEST_ERROR, TOKEN,
 } from './actionsType';
 
 export const login = (email, nome, image) => ({
@@ -21,4 +21,9 @@ export const requestAPI = () => ({
 export const apiError = (error) => ({
   type: REQUEST_ERROR,
   error,
+});
+
+export const questionDone = (bool) => ({
+  type: QUESTION_DONE,
+  responded: bool,
 });
