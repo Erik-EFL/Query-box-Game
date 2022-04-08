@@ -3,10 +3,23 @@
 }
 
 .incorrect_answer {
+
+  height: 70px;
+  width: 100%;
+  color: white;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  background-color: red;
   border: 3px solid red;
 }
 
 .correct_answer {
+
+  height: 70px;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 8px;
+  background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
 }
 
@@ -35,4 +48,15 @@ button:disabled {
 }
 .botaoVis {
   visibility: visible;
+}
+
+.user_image {
+  border-radius: 50%;
+}
+
+.question {
+  height: 70px;
+  width: 100%;
+  margin-bottom: 5px;
+  border-radius: 8px;
 }

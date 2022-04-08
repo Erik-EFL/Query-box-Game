@@ -30,8 +30,6 @@ class Questions extends Component {
      questionResponded(false);
    }
 
-  randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
-
   handleClickAnswer = () => {
     const { questionResponded } = this.props;
     questionResponded(true);
@@ -45,7 +43,7 @@ class Questions extends Component {
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? styles.incorrect_answer : '' }
+        className={ questionOk ? styles.incorrect_answer : styles.question }
         disabled={ questionOk }
       >
         {element}
@@ -58,7 +56,7 @@ class Questions extends Component {
         data-testid="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? styles.correct_answer : '' }
+        className={ questionOk ? styles.correct_answer : styles.question }
         disabled={ questionOk }
       >
         {question.correct_answer}
@@ -92,6 +90,7 @@ class Questions extends Component {
       <div className={ styles.Questions }>
         <header className={ styles.user_header }>
           <img
+            className={ styles.user_image }
             src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
