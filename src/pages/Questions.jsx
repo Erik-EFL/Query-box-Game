@@ -25,44 +25,20 @@ class Questions extends Component {
    handleClick = () => {
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo, playerRight: false, playerWrong: false });
+     this.setState({
+       indexInit: valorNovo,
+       indexDQ: valorNovo,
+       playerRight: false,
+       playerWrong: false });
+     this.indexInitSumn();
    }
 
-   /*   receiveQuestions = async () => {
-    const { token } = this.props;
-    const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({ results: data.results });
-    return data;
-  } */
+   indexInitSumn = () => {
+     const proxIndex = indexInit + 1;
+     this.setState({ indexInit: proxIndex });
+   }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
-
-  /*     organizerQuestions = () => {
-      const { results, indexDQ } = this.state;
-      const {
-        correct_answer: correctAnswer,
-        incorrect_answers: incorrectAnswers,
-      } = results[indexDQ];
-      this.setState((prevState) => [...prevState, sortedQuestions])
-        .sort(() => Math.random() - Number('0.5'));
-    } */
-
-  /*   corretaAleatoria = (question) => {
-    const number = 3;
-
-    const incorretas = question.incorrect_answers;
-    const correta = question.correct_answer;
-    const aleatorio = Math.floor(Math.random() * number - 0);
-    const devolver = incorretas[aleatorio];
-    incorretas[aleatorio] = correta;
-    incorretas.push(devolver);
-    return {
-      incorretas,
-
-    };
-  } */
 
   handleClickAnswer = () => {
     this.setState({
@@ -97,10 +73,8 @@ class Questions extends Component {
 
       </button>,
     );
-    const proxIndex = indexInit + 1;
     if (indexInit === indexDQ) {
       this.shuffle(botoes);
-      this.setState({ indexInit: proxIndex });
     }
     return botoes;
   }
@@ -118,19 +92,6 @@ class Questions extends Component {
     const { questions } = this.props;
     const { player: { nome, image } } = this.props;
     console.log(questions);
-
-    /*     const incorrect = questions.map((item, index) => ({
-      item,
-      position: this.randomAlternatives(),
-      id: `wrong-answer-${index}`,
-    }));
-    console.log(incorrect); */
-
-    /*    const sortedQuestions = [...incorrect, {
-      item: questions.correct_answer,
-      position: this.randomAlternatives(),
-      id: 'correct-answer',
-    }]; */
 
     return (
       <div className="Questions">
