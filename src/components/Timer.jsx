@@ -15,18 +15,23 @@ class Timer extends React.Component {
 
   componentDidMount() {
     const oneSecond = 1000;
-    setInterval(this.startWatch, oneSecond);
+    const interval = setInterval(this.startWatch, oneSecond);
+    this.setState({ interval });
+  }
+
+  componentWillUnmount() {
+    const { interval } = this.state;
+    clearInterval(interval);
   }
 
   startWatch = () => {
-    const { timer } = this.state;
-    const { questionResponded } = this.props;
-    const { questionOk } = this.props;
+    const { timer, interval } = this.state;
+    const { questionResponded, questionOk } = this.props;
     if (timer > 0 && questionOk === false) {
       this.setState({ timer: timer - 1 });
     } else {
-      questionResponded(true);
-      this.setState({ timer: 30 });
+      questionResponded(true, timer);
+      clearInterval(interval);
     }
   }
 
@@ -49,7 +54,7 @@ const mapStateToProps = (state) => (
 );
 
 const mapDispatchToProps = (dispatch) => ({
-  questionResponded: (bool) => dispatch(questionDone(bool)),
+  questionResponded: (bool, time) => dispatch(questionDone(bool, time)),
 });
 
 Timer.propTypes = {

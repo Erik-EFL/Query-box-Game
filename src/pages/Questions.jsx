@@ -2,10 +2,10 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Timer from '../components/Timer';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
-import { questionDone } from '../redux/actions/actions';
+import { questionDone, questionPoints } from '../redux/actions/actions';
 import './Questions.css';
+import timerIcon from '../timer.png';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -14,27 +14,66 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      timer: 30,
     };
   }
 
    componentDidMount = async () => {
      const { receiveQuestions } = this.props;
      receiveQuestions();
+     this.timerInterval();
+   }
+
+   timerInterval = () => {
+     const oneSecond = 1000;
+     const interval = setInterval(this.startWatch, oneSecond);
+     this.setState({ interval });
+   }
+
+   startWatch = () => {
+     const { timer, interval } = this.state;
+     const { questionResponded, questionOk } = this.props;
+     if (timer > 0 && questionOk === false) {
+       this.setState({ timer: timer - 1 });
+     } else {
+       questionResponded(true, timer);
+       clearInterval(interval);
+     }
    }
 
    handleClick = () => {
      const { questionResponded } = this.props;
+     questionResponded(false);
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo });
-     questionResponded(false);
+     this.setState({ indexDQ: valorNovo, timer: 30 });
+
+     this.timerInterval();
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
 
-  handleClickAnswer = () => {
-    const { questionResponded } = this.props;
+  handleClickAnswer = ({ target }) => {
+    const { indexDQ, timer } = this.state;
+    const { questionResponded, questions } = this.props;
     questionResponded(true);
+    const { difficulty } = questions[indexDQ];
+    if (target.id === 'correct') {
+      this.scoreCalc(timer, difficulty);
+    }
+  }
+
+  scoreCalc = (timer, difficulty) => {
+    const { player: { score, assertions }, dispatchScore } = this.props;
+    const newAssertions = assertions + 1;
+    let difficultyValue = null;
+    const hard = 3;
+    const ten = 10;
+    if (difficulty === 'easy') { difficultyValue = 1; }
+    if (difficulty === 'medium') { difficultyValue = 2; }
+    if (difficulty === 'hard') { difficultyValue = hard; }
+    const calculation = ten + (timer * difficultyValue) + score;
+    dispatchScore(calculation, newAssertions);
   }
 
   questionAnswerPrinter = (question) => {
@@ -45,6 +84,7 @@ class Questions extends Component {
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
+        id="incorrect"
         className={ questionOk ? 'incorrect-answer' : '' }
         disabled={ questionOk }
       >
@@ -58,6 +98,7 @@ class Questions extends Component {
         data-testid="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
+        id="correct"
         className={ questionOk ? 'correct-answer' : '' }
         disabled={ questionOk }
       >
@@ -84,9 +125,9 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ } = this.state;
+    const { indexDQ, timer } = this.state;
     const { questions, questionOk } = this.props;
-    const { player: { name, gravatarEmail } } = this.props;
+    const { player: { name, gravatarEmail, score } } = this.props;
 
     return (
       <div className="Questions">
@@ -102,14 +143,17 @@ class Questions extends Component {
           </div>
           <div>
             Pontuação:
-            <h2 data-testid="header-score">0</h2>
+            <h2 data-testid="header-score">{score}</h2>
           </div>
         </header>
         <h1>Questions</h1>
         {
           questions ? (
             <>
-              <Timer />
+              <div className="timer-container">
+                <span className="timer-text">{ timer }</span>
+                <img className="timer-icon" src={ timerIcon } alt="timer" />
+              </div>
               <p
                 data-testid="question-category"
               >
@@ -155,6 +199,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   receiveQuestions: () => dispatch(questionDataThunk()),
   questionResponded: (bool) => dispatch(questionDone(bool)),
+  dispatchScore: (score, assertions) => dispatch(questionPoints(score, assertions)),
 });
 
 Questions.propTypes = {
