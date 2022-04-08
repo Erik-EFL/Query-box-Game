@@ -1,3 +1,4 @@
+import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -68,6 +69,12 @@ class Questions extends Component {
     return botoes;
   }
 
+  gravatarHash = (userEmail) => {
+    const convertEmail = md5(userEmail).toString();
+    const gravatarUrl = `https://www.gravatar.com/avatar/${convertEmail}`;
+    return gravatarUrl;
+  }
+
   shuffle(a) {
     for (let i = a.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -78,20 +85,20 @@ class Questions extends Component {
 
   render() {
     const { indexDQ } = this.state;
-    const { questions } = this.props;
-    const { player: { nome, image } } = this.props;
+    const { questions, questionOk } = this.props;
+    const { player: { name, gravatarEmail } } = this.props;
 
     return (
       <div className="Questions">
         <header className="user-header">
           <img
-            src={ image }
+            src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
           />
           <div>
             Jogador:
-            <h2 data-testid="header-player-name">{nome}</h2>
+            <h2 data-testid="header-player-name">{name}</h2>
           </div>
           <div>
             Pontuação:
@@ -124,7 +131,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        <button type="submit" onClick={ this.handleClick }>Proxima pergunta</button>
+        {questionOk ? (
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+            disabled={ !questionOk }
+          >
+            Proxima pergunta
+
+          </button>) : ''}
       </div>
     );
   }

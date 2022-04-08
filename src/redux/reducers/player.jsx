@@ -1,8 +1,10 @@
-import { LOGIN } from '../actions/actionsType';
+import { LOGIN, QUESTION } from '../actions/actionsType';
 
 const INICIAL_STATE = {
-  nome: '',
-  image: '',
+  name: '',
+  assertions: '',
+  score: 0,
+  gravatarEmail: '',
 };
 
 const player = (state = INICIAL_STATE, action) => {
@@ -10,9 +12,14 @@ const player = (state = INICIAL_STATE, action) => {
   case LOGIN:
     return {
       ...state,
-      email: action.email,
-      nome: action.nome,
-      image: action.image,
+      gravatarEmail: action.gravatarEmail,
+      name: action.name,
+    };
+  case QUESTION:
+    return {
+      ...state,
+      score: action.score,
+      assertions: action.assertions,
     };
   default:
     return state;
