@@ -1,28 +1,19 @@
-* {
-  background: #282c34;
-}
-
 .Questions {
   color: white;
 }
 
-.incorrect-answer {
+.incorrect_answer {
   border: 3px solid red;
 }
 
-.correct-answer {
+.correct_answer {
   border: 3px solid rgb(6, 240, 15);
 }
 
-.user-header {
+.user_header {
   border: 3px solid rgb(6, 240, 15);
   display: flex;
   justify-content: space-around;
-}
-
-.logo-trivia {
-  margin: 150px;
-  width: 600px;
 }
 
 button {

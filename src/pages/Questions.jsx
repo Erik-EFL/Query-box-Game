@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Timer from '../components/Timer';
+import styles from '../Css/Questions.module.css';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone } from '../redux/actions/actions';
-import './Questions.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -45,7 +45,7 @@ class Questions extends Component {
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'incorrect-answer' : '' }
+        className={ questionOk ? styles.incorrect_answer : '' }
         disabled={ questionOk }
       >
         {element}
@@ -58,7 +58,7 @@ class Questions extends Component {
         data-testid="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'correct-answer' : '' }
+        className={ questionOk ? styles.correct_answer : '' }
         disabled={ questionOk }
       >
         {question.correct_answer}
@@ -89,8 +89,8 @@ class Questions extends Component {
     const { player: { name, gravatarEmail } } = this.props;
 
     return (
-      <div className="Questions">
-        <header className="user-header">
+      <div className={ styles.Questions }>
+        <header className={ styles.user_header }>
           <img
             src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
@@ -132,7 +132,7 @@ class Questions extends Component {
           )
         }
         <button
-          className={ !questionOk ? 'botaoInvis' : 'botaoVis' }
+          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
           type="submit"
           onClick={ this.handleClick }
           data-testid="btn-next"
