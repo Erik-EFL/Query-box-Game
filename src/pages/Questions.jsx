@@ -131,15 +131,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        {questionOk ? (
-          <button
-            type="submit"
-            onClick={ this.handleClick }
-            disabled={ !questionOk }
-          >
-            Proxima pergunta
+        <button
+          className={ !questionOk ? 'botaoInvis' : 'botaoVis' }
+          type="submit"
+          onClick={ this.handleClick }
+          data-testid="btn-next"
+        >
+          Proxima pergunta
 
-          </button>) : ''}
+        </button>
       </div>
     );
   }

@@ -38,3 +38,10 @@ button:disabled {
   display: flex;
   flex-direction: column;
 }
+
+.botaoInvis {
+  visibility: hidden;
+}
+.botaoVis {
+  visibility: visible;
+}
