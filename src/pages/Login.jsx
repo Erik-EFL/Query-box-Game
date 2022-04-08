@@ -1,4 +1,3 @@
-import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -7,6 +6,7 @@ import '../App.css';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
 import settingsIcon from '../settings.png';
+import triviaLogo from '../trivia.png';
 
 class Login extends Component {
   constructor() {
@@ -40,23 +40,19 @@ class Login extends Component {
     const { user, history, token } = this.props;
     const { email, nome } = this.state;
     const tokenAPI = await fetchToken();
-    const image = this.gravatarHash(email);
-    user(email, nome, image);
+    user(email, nome);
     token(tokenAPI);
     history.push('/questions');
   };
-
-  gravatarHash = (userEmail) => {
-    const convertEmail = md5(userEmail).toString();
-    const gravatarUrl = `https://www.gravatar.com/avatar/${convertEmail}`;
-    return gravatarUrl;
-  }
 
   render() {
     const { btnDisabled } = this.state;
     return (
       <div>
         <div className="login-container">
+          <header>
+            <img src={ triviaLogo } alt="logo-trivia" className="logo-trivia" />
+          </header>
           <div className="settings-button">
             <Link to="/settings">
               <img
@@ -103,7 +99,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  user: (email, nome, image) => dispatch(login(email, nome, image)),
+  user: (gravatarEmail, name) => dispatch(login(gravatarEmail, name)),
   token: (tokenAPI) => dispatch(tokenLogin(tokenAPI)),
 });
 
