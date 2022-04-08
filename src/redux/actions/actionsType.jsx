@@ -6,3 +6,4 @@ export const ALEATORY_QUESTS = 'ALEATORY_QUESTS';
 export const REQUEST_ERROR = 'REQUEST_ERROR';
 export const QUESTION_DONE = 'QUESTION_DONE';
 export const TOKEN = 'TOKEN';
+export const QUESTION = 'QUESTION';

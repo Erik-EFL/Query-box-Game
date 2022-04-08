@@ -1,3 +1,4 @@
+import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -29,41 +30,7 @@ class Questions extends Component {
      questionResponded(false);
    }
 
-   /*   receiveQuestions = async () => {
-    const { token } = this.props;
-    const url = `https://opentdb.com/api.php?amount=5&token=${token}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    this.setState({ results: data.results });
-    return data;
-  } */
-
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
-
-  /*     organizerQuestions = () => {
-      const { results, indexDQ } = this.state;
-      const {
-        correct_answer: correctAnswer,
-        incorrect_answers: incorrectAnswers,
-      } = results[indexDQ];
-      this.setState((prevState) => [...prevState, sortedQuestions])
-        .sort(() => Math.random() - Number('0.5'));
-    } */
-
-  /*   corretaAleatoria = (question) => {
-    const number = 3;
-
-    const incorretas = question.incorrect_answers;
-    const correta = question.correct_answer;
-    const aleatorio = Math.floor(Math.random() * number - 0);
-    const devolver = incorretas[aleatorio];
-    incorretas[aleatorio] = correta;
-    incorretas.push(devolver);
-    return {
-      incorretas,
-
-    };
-  } */
 
   handleClickAnswer = () => {
     const { questionResponded } = this.props;
@@ -102,6 +69,12 @@ class Questions extends Component {
     return botoes;
   }
 
+  gravatarHash = (userEmail) => {
+    const convertEmail = md5(userEmail).toString();
+    const gravatarUrl = `https://www.gravatar.com/avatar/${convertEmail}`;
+    return gravatarUrl;
+  }
+
   shuffle(a) {
     for (let i = a.length - 1; i > 0; i -= 1) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -112,33 +85,20 @@ class Questions extends Component {
 
   render() {
     const { indexDQ } = this.state;
-    const { questions } = this.props;
-    const { player: { nome, image } } = this.props;
-
-    /*     const incorrect = questions.map((item, index) => ({
-      item,
-      position: this.randomAlternatives(),
-      id: `wrong-answer-${index}`,
-    }));
-    console.log(incorrect); */
-
-    /*    const sortedQuestions = [...incorrect, {
-      item: questions.correct_answer,
-      position: this.randomAlternatives(),
-      id: 'correct-answer',
-    }]; */
+    const { questions, questionOk } = this.props;
+    const { player: { name, gravatarEmail } } = this.props;
 
     return (
       <div className="Questions">
         <header className="user-header">
           <img
-            src={ image }
+            src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
           />
           <div>
             Jogador:
-            <h2 data-testid="header-player-name">{nome}</h2>
+            <h2 data-testid="header-player-name">{name}</h2>
           </div>
           <div>
             Pontuação:
@@ -171,7 +131,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        <button type="submit" onClick={ this.handleClick }>Proxima pergunta</button>
+        {questionOk ? (
+          <button
+            type="submit"
+            onClick={ this.handleClick }
+            disabled={ !questionOk }
+          >
+            Proxima pergunta
+
+          </button>) : ''}
       </div>
     );
   }

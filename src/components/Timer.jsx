@@ -1,9 +1,9 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+import { questionDone } from '../redux/actions/actions';
 import timerIcon from '../timer.png';
 import './Timer.css';
-import { questionDone } from '../redux/actions/actions';
 
 class Timer extends React.Component {
   constructor() {
@@ -26,6 +26,7 @@ class Timer extends React.Component {
       this.setState({ timer: timer - 1 });
     } else {
       questionResponded(true);
+      this.setState({ timer: 30 });
     }
   }
 
