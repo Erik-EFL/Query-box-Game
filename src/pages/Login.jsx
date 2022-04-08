@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
+import triviaLogo from '../trivia.png';
 import settingsIcon from '../settings.png';
 
 class Login extends Component {
@@ -57,6 +58,9 @@ class Login extends Component {
     return (
       <div>
         <div className="login-container">
+          <header>
+            <img src={ triviaLogo } alt="logo-trivia" className="logo-trivia" />
+          </header>
           <div className="settings-button">
             <Link to="/settings">
               <img
