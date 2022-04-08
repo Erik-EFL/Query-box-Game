@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
+import styles from '../Css/Timer.module.css';
 import { questionDone } from '../redux/actions/actions';
 import timerIcon from '../timer.png';
-import './Timer.css';
 
 class Timer extends React.Component {
   constructor() {
@@ -33,9 +33,9 @@ class Timer extends React.Component {
   render() {
     const { timer } = this.state;
     return (
-      <div className="timer-container">
-        <span className="timer-text">{ timer }</span>
-        <img className="timer-icon" src={ timerIcon } alt="timer" />
+      <div className={ styles.timer_container }>
+        <span className={ styles.timer_text }>{ timer }</span>
+        <img className={ styles.timer_icon } src={ timerIcon } alt="timer" />
       </div>
     );
   }

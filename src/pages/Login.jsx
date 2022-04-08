@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import '../App.css';
+import styles from '../Css/Login.module.css';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
 import settingsIcon from '../settings.png';
@@ -48,10 +48,10 @@ class Login extends Component {
   render() {
     const { btnDisabled } = this.state;
     return (
-      <div>
+      <div className={ styles.loginMainDiv }>
         <div className="login-container">
           <header>
-            <img src={ triviaLogo } alt="logo-trivia" className="logo-trivia" />
+            <img src={ triviaLogo } alt="logo-trivia" className={ styles.logo_trivia } />
           </header>
           <div className="settings-button">
             <Link to="/settings">
@@ -62,28 +62,31 @@ class Login extends Component {
               />
             </Link>
           </div>
-          <form>
-            <label htmlFor="nome">
-              Nome:
+          <form className={ styles.formLogin }>
+            <label htmlFor="nome" className={ styles.inputsLogin }>
               <input
+                className={ styles.loginNameInput }
                 type="text"
                 name="nome"
                 id="nome"
+                placeholder="Nome"
                 onChange={ this.handleChange }
                 data-testid="input-player-name"
               />
             </label>
-            <label htmlFor="email">
-              E-mail
+            <label htmlFor="email" className={ styles.inputsLogin }>
               <input
+                className={ styles.loginEmailInput }
                 type="email"
                 name="email"
                 id="email"
+                placeholder="Email"
                 onChange={ this.handleChange }
                 data-testid="input-gravatar-email"
               />
             </label>
             <button
+              className={ styles.playBtn }
               type="button"
               data-testid="btn-play"
               onClick={ this.handleClick }

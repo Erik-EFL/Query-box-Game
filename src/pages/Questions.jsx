@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Timer from '../components/Timer';
+import styles from '../Css/Questions.module.css';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone } from '../redux/actions/actions';
-import './Questions.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -30,8 +30,6 @@ class Questions extends Component {
      questionResponded(false);
    }
 
-  randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
-
   handleClickAnswer = () => {
     const { questionResponded } = this.props;
     questionResponded(true);
@@ -45,7 +43,7 @@ class Questions extends Component {
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'incorrect-answer' : '' }
+        className={ questionOk ? styles.incorrect_answer : styles.question }
         disabled={ questionOk }
       >
         {element}
@@ -58,7 +56,7 @@ class Questions extends Component {
         data-testid="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'correct-answer' : '' }
+        className={ questionOk ? styles.correct_answer : styles.question }
         disabled={ questionOk }
       >
         {question.correct_answer}
@@ -89,9 +87,10 @@ class Questions extends Component {
     const { player: { name, gravatarEmail } } = this.props;
 
     return (
-      <div className="Questions">
-        <header className="user-header">
+      <div className={ styles.Questions }>
+        <header className={ styles.user_header }>
           <img
+            className={ styles.user_image }
             src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
@@ -131,15 +130,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        {questionOk ? (
-          <button
-            type="submit"
-            onClick={ this.handleClick }
-            disabled={ !questionOk }
-          >
-            Proxima pergunta
+        <button
+          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
+          type="submit"
+          onClick={ this.handleClick }
+          data-testid="btn-next"
+        >
+          Proxima pergunta
 
-          </button>) : ''}
+        </button>
       </div>
     );
   }

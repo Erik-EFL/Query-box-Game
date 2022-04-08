@@ -1,0 +1,61 @@
+* {
+  background: #282c34;
+}
+
+.loginMainDiv {
+  text-align: center;
+}
+
+.formsLogin {
+  color: white;
+}
+
+::placeholder {
+  color: white;
+}
+
+.inputsLogin {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.loginEmailInput, .loginNameInput {
+  padding: 4px 8px;
+  border-radius: 10px;
+  background-color: rgb(43, 43, 43);
+  outline: none;
+  border: 1px solid;
+  color: white;
+  box-shadow: 0px 4px 4px rgb(19, 19, 19);
+}
+
+.playBtn {
+  padding: 4px 8px;
+  border-radius: 10px;
+  background-color: rgb(43, 43, 43);
+  outline: none;
+  border: 1px solid;
+  color: white;
+  box-shadow: 0px 4px 4px rgb(19, 19, 19);
+  padding-left: 85px;
+  padding-right: 85px;
+}
+
+.playBtn:hover {
+  background-color: white;
+  color: black;
+  padding-left: 90px;
+  padding-right: 90px;
+}
+
+.logo_trivia {
+  display: block;
+  padding-top: 100px;
+  margin: 0 auto;
+  height: 400px;
+  width: 800px;
+}
