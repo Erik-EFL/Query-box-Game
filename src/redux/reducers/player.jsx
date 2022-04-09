@@ -1,8 +1,8 @@
-import { LOGIN, QUESTION } from '../actions/actionsType';
+import { LOGIN, QUESTION_POINTS } from '../actions/actionsType';
 
 const INICIAL_STATE = {
   name: '',
-  assertions: '',
+  assertions: 0,
   score: 0,
   gravatarEmail: '',
 };
@@ -15,7 +15,7 @@ const player = (state = INICIAL_STATE, action) => {
       gravatarEmail: action.gravatarEmail,
       name: action.name,
     };
-  case QUESTION:
+  case QUESTION_POINTS:
     return {
       ...state,
       score: action.score,
