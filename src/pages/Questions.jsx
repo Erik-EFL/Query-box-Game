@@ -2,6 +2,8 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+// import Timer from '../components/Timer';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints } from '../redux/actions/actions';
 import timerIcon from '../timer.png';
@@ -14,6 +16,7 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      feadbackRedirect: false,
       timer: 30,
     };
   }
@@ -48,6 +51,10 @@ class Questions extends Component {
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo, timer: 30 });
      this.timerInterval();
+     const questionsLimit = 3;
+     if (indexDQ === questionsLimit) {
+       this.setState({ feadbackRedirect: true });
+     }
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
@@ -123,7 +130,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ, timer } = this.state;
+    const { indexDQ, timer, feadbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
 
@@ -174,15 +181,28 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        <button
-          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
-          type="submit"
-          onClick={ this.handleClick }
-          data-testid="btn-next"
-        >
-          Proxima pergunta
+        {feadbackRedirect ? (
+          <Link to="/feadback">
+            <button
+              className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
+              type="submit"
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Próxima pergunta
 
-        </button>
+            </button>
+          </Link>)
+          : (
+            <button
+              className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
+              type="submit"
+              onClick={ this.handleClick }
+              data-testid="btn-next"
+            >
+              Próxima pergunta
+
+            </button>)}
       </div>
     );
   }
