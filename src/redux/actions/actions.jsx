@@ -1,6 +1,6 @@
 import {
   API_REQUEST_SUCCESS,
-  LOGIN, QUESTION, QUESTION_DONE, REQUEST_ERROR, TOKEN
+  LOGIN, QUESTION, QUESTION_DONE, REQUEST_ERROR, TOKEN,
 } from './actionsType';
 
 export const login = (gravatarEmail, name) => ({

@@ -2,6 +2,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import Timer from '../components/Timer';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone } from '../redux/actions/actions';
@@ -14,6 +15,7 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      feadbackRedirect: false,
     };
   }
 
@@ -24,9 +26,14 @@ class Questions extends Component {
 
    handleClick = () => {
      const { questionResponded } = this.props;
-     const { indexDQ } = this.state;
+     const { indexDQ, feadbackRedirect } = this.state;
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo });
+     const questionsLimit = 3;
+     if (indexDQ === questionsLimit) {
+       this.setState({ feadbackRedirect: true });
+     }
+     console.log(feadbackRedirect);
      questionResponded(false);
    }
 
@@ -84,7 +91,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ } = this.state;
+    const { indexDQ, feadbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail } } = this.props;
 
@@ -131,7 +138,7 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        {questionOk ? (
+        {questionOk && !feadbackRedirect ? (
           <button
             type="submit"
             onClick={ this.handleClick }
@@ -140,6 +147,18 @@ class Questions extends Component {
             Proxima pergunta
 
           </button>) : ''}
+        {questionOk && feadbackRedirect ? (
+          <Link to="/feadback">
+            <button
+              type="submit"
+              onClick={ this.handleClick }
+              disabled={ !questionOk }
+              data-testid="btn-next"
+            >
+              Proxima pergunta
+
+            </button>
+          </Link>) : ''}
       </div>
     );
   }
