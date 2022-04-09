@@ -1,0 +1,32 @@
+.container_feedback {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_header {
+  align-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.336);
+  color: white;
+  display: flex;
+  height: 90px;
+  justify-content: space-around;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.user_image {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.feedback_container {
+  margin-top: 150px;
+  color: white;
+}

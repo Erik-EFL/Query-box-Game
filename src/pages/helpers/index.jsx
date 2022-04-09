@@ -1,6 +1,11 @@
-const feedbacksMessages = {
+export const feedbacksMessages = {
   beBetter: 'Could be better...',
   done: 'Well Done!',
 };
 
-export default feedbacksMessages;
+export const INICIAL_STATE = {
+  name: '',
+  assertions: 0,
+  score: 0,
+  gravatarEmail: '',
+};
