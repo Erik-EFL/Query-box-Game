@@ -2,11 +2,12 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import Timer from '../components/Timer';
+// import { Link } from 'react-router-dom';
+// import Timer from '../components/Timer';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
-import { questionDone } from '../redux/actions/actions';
-import './Questions.css';
+import { questionDone, questionPoints } from '../redux/actions/actions';
+import timerIcon from '../timer.png';
+import styles from '../Css/Questions.module.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -16,43 +17,76 @@ class Questions extends Component {
     this.state = {
       indexDQ: 0,
       feadbackRedirect: false,
+      timer: 30,
     };
   }
 
    componentDidMount = async () => {
      const { receiveQuestions } = this.props;
      receiveQuestions();
+     this.timerInterval();
+   }
+
+   timerInterval = () => {
+     const oneSecond = 1000;
+     const interval = setInterval(this.startWatch, oneSecond);
+     this.setState({ interval });
+   }
+
+   startWatch = () => {
+     const { timer, interval } = this.state;
+     const { questionResponded, questionOk } = this.props;
+     if (timer > 0 && questionOk === false) {
+       this.setState({ timer: timer - 1 });
+     } else {
+       questionResponded(true);
+       clearInterval(interval);
+     }
    }
 
    handleClick = () => {
      const { questionResponded } = this.props;
-     const { indexDQ, feadbackRedirect } = this.state;
-     const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo });
-     const questionsLimit = 3;
-     if (indexDQ === questionsLimit) {
-       this.setState({ feadbackRedirect: true });
-     }
-     console.log(feadbackRedirect);
      questionResponded(false);
+     const { indexDQ } = this.state;
+     const valorNovo = indexDQ + 1;
+     this.setState({ indexDQ: valorNovo, timer: 30 });
+     this.timerInterval();
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
 
-  handleClickAnswer = () => {
-    const { questionResponded } = this.props;
+  handleClickAnswer = ({ target }) => {
+    const { indexDQ, timer } = this.state;
+    const { questionResponded, questions } = this.props;
     questionResponded(true);
+    const { difficulty } = questions[indexDQ];
+    if (target.id === 'correct-answer') {
+      this.scoreCalc(timer, difficulty);
+    }
+  }
+
+  scoreCalc = (timer, difficulty) => {
+    const { player: { score, assertions }, dispatchScore } = this.props;
+    const newAssertions = assertions + 1;
+    let difficultyValue = null;
+    const hard = 3;
+    const ten = 10;
+    if (difficulty === 'easy') { difficultyValue = 1; }
+    if (difficulty === 'medium') { difficultyValue = 2; }
+    if (difficulty === 'hard') { difficultyValue = hard; }
+    const calculation = ten + (timer * difficultyValue) + score;
+    dispatchScore(calculation, newAssertions);
   }
 
   questionAnswerPrinter = (question) => {
     const { questionOk } = this.props;
-    const botoes = question.incorrect_answers.map((element, index) => (
+    let botoes = question.incorrect_answers.map((element, index) => (
       <button
         key={ element }
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'incorrect-answer' : '' }
+        className={ questionOk ? styles.incorrect_answer : styles.question }
         disabled={ questionOk }
       >
         {element}
@@ -63,16 +97,17 @@ class Questions extends Component {
       <button
         key="correct"
         data-testid="correct-answer"
+        id="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        className={ questionOk ? 'correct-answer' : '' }
+        className={ questionOk ? styles.correct_answer : styles.question }
         disabled={ questionOk }
       >
         {question.correct_answer}
 
       </button>,
     );
-    this.shuffle(botoes);
+    botoes = this.shuffle(botoes);
     return botoes;
   }
 
@@ -91,14 +126,15 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ, feadbackRedirect } = this.state;
+    const { indexDQ, timer } = this.state;
     const { questions, questionOk } = this.props;
-    const { player: { name, gravatarEmail } } = this.props;
+    const { player: { name, gravatarEmail, score } } = this.props;
 
     return (
-      <div className="Questions">
-        <header className="user-header">
+      <div className={ styles.Questions }>
+        <header className={ styles.user_header }>
           <img
+            className={ styles.user_image }
             src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
@@ -109,14 +145,17 @@ class Questions extends Component {
           </div>
           <div>
             Pontuação:
-            <h2 data-testid="header-score">0</h2>
+            <h2 data-testid="header-score">{score}</h2>
           </div>
         </header>
         <h1>Questions</h1>
         {
           questions ? (
             <>
-              <Timer />
+              <div className={ styles.timer_container }>
+                <span className={ styles.timer_text }>{ timer }</span>
+                <img className={ styles.timer_icon } src={ timerIcon } alt="timer" />
+              </div>
               <p
                 data-testid="question-category"
               >
@@ -138,27 +177,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        {questionOk && !feadbackRedirect ? (
-          <button
-            type="submit"
-            onClick={ this.handleClick }
-            disabled={ !questionOk }
-          >
-            Proxima pergunta
+        <button
+          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
+          type="submit"
+          onClick={ this.handleClick }
+          data-testid="btn-next"
+        >
+          Proxima pergunta
 
-          </button>) : ''}
-        {questionOk && feadbackRedirect ? (
-          <Link to="/feadback">
-            <button
-              type="submit"
-              onClick={ this.handleClick }
-              disabled={ !questionOk }
-              data-testid="btn-next"
-            >
-              Proxima pergunta
-
-            </button>
-          </Link>) : ''}
+        </button>
       </div>
     );
   }
@@ -174,6 +201,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   receiveQuestions: () => dispatch(questionDataThunk()),
   questionResponded: (bool) => dispatch(questionDone(bool)),
+  dispatchScore: (score, assertions) => dispatch(questionPoints(score, assertions)),
 });
 
 Questions.propTypes = {

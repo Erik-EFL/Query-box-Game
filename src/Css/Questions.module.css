@@ -1,0 +1,86 @@
+.Questions {
+  color: white;
+}
+
+.incorrect_answer {
+  background-color: red;
+  border: 3px solid red;
+  border-radius: 8px;
+  color: white;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.correct_answer {
+  background-color: rgb(6, 240, 15);
+  border: 3px solid rgb(6, 240, 15);
+  border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.user_header {
+  border: 3px solid rgb(6, 240, 15);
+  display: flex;
+  justify-content: space-around;
+}
+
+button {
+  background-color: white;
+}
+
+button:disabled {
+  color: black;
+}
+
+.login-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.botaoInvis {
+  visibility: hidden;
+}
+
+.botaoVis {
+  visibility: visible;
+}
+
+.user_image {
+  border-radius: 50%;
+}
+
+.question {
+  border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.timer_container {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  width: 100px;
+}
+
+.timer_icon {
+  position: relative;
+  width: 75px;
+  z-index: 0;
+}
+
+.timer_text {
+  background-color: lightgoldenrodyellow;
+  border-radius: 3px;
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 1;
+}

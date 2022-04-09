@@ -11,7 +11,10 @@ const questionDone = (state = INICIAL_STATE, action) => {
   switch (action.type) {
   case QUESTION_DONE:
     return {
-      responded: action.responded };
+      ...state,
+      responded: action.responded,
+      time: action.time,
+    };
   default:
     return state;
   }
