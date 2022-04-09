@@ -7,6 +7,7 @@ import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints } from '../redux/actions/actions';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
+import Header from '../components/Header';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -131,24 +132,10 @@ class Questions extends Component {
   render() {
     const { indexDQ, feedbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
-    const { player: { name, gravatarEmail, score } } = this.props;
     localStorage.setItem('score', 'score');
     return (
       <div className={ styles.Questions }>
-        <header className={ styles.user_header }>
-          <img
-            className={ styles.user_image }
-            src={ this.gravatarHash(gravatarEmail) }
-            data-testid="header-profile-picture"
-            alt="profile-avatar"
-          />
-          <div className={ styles.user_info }>
-            Jogador:
-            <h2 data-testid="header-player-name">{name}</h2>
-            Pontuação:
-            <h2 data-testid="header-score">{score}</h2>
-          </div>
-        </header>
+        <Header />
         <div className={ styles.mainQuestionContent }>
           <div className={ styles.containerQuestions }>
             <Timer />

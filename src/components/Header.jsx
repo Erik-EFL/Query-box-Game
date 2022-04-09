@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
-import styles from '../Css/Questions.module.css';
+import styles from '../Css/Header.module.css';
 
 class Header extends Component {
   gravatarHash = (userEmail) => {
@@ -22,13 +22,15 @@ class Header extends Component {
           data-testid="header-profile-picture"
           alt="profile-avatar"
         />
-        <div>
-          Jogador:
-          <h2 data-testid="header-player-name">{name}</h2>
-        </div>
-        <div>
-          Pontuação:
-          <h2 data-testid="header-score">{score}</h2>
+        <div className={ styles.user_info }>
+          <div className={ styles.player_container }>
+            <span className={ styles.jogador }> Player</span>
+            <p data-testid="header-player-name">{name}</p>
+          </div>
+          <div className={ styles.score_container }>
+            <span className={ styles.pontos }> Score</span>
+            <p data-testid="header-score">{score}</p>
+          </div>
         </div>
       </header>
     );

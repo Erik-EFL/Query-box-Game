@@ -3,18 +3,6 @@
   margin: 0 auto;
 }
 
-.user_header {
-  align-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.336);
-  display: flex;
-  height: 90px;
-  justify-content: space-around;
-  left: 0;
-  position: absolute;
-  width: 100%;
-}
-
 .mainQuestionContent {
   align-content: center;
   display: flex;
@@ -22,20 +10,6 @@
   justify-content: center;
   margin: 0 auto;
   max-width: 80%;
-}
-
-.user_image {
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-}
-
-.user_info {
-  align-content: center;
-  align-items: center;
-  column-gap: 15px;
-  display: flex;
-  margin-right: -30px;
 }
 
 .login-container {
