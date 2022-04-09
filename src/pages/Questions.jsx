@@ -2,6 +2,7 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints } from '../redux/actions/actions';
 import Timer from '../components/Timer';
@@ -14,6 +15,7 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      feadbackRedirect: false,
       timer: 30,
     };
   }
@@ -48,6 +50,10 @@ class Questions extends Component {
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo, timer: 30 });
      this.timerInterval();
+     const questionsLimit = 3;
+     if (indexDQ === questionsLimit) {
+       this.setState({ feadbackRedirect: true });
+     }
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
@@ -123,10 +129,9 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ } = this.state;
+    const { indexDQ, timer, feadbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
-
     return (
       <div className={ styles.Questions }>
         <header className={ styles.user_header }>
