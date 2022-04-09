@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
+import styles from '../Css/Questions.module.css';
 
 class Header extends Component {
   gravatarHash = (userEmail) => {
@@ -11,11 +12,12 @@ class Header extends Component {
   }
 
   render() {
-    const { player: { name, gravatarEmail } } = this.props;
+    const { player: { name, gravatarEmail, score } } = this.props;
 
     return (
-      <header className="user-header">
+      <header className={ styles.user_header }>
         <img
+          className={ styles.user_image }
           src={ this.gravatarHash(gravatarEmail) }
           data-testid="header-profile-picture"
           alt="profile-avatar"
@@ -26,7 +28,7 @@ class Header extends Component {
         </div>
         <div>
           Pontuação:
-          <h2 data-testid="header-score">0</h2>
+          <h2 data-testid="header-score">{score}</h2>
         </div>
       </header>
     );
