@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styles from '../Css/Questions.module.css';
 import feedbacksMessages from './helpers';
 
@@ -17,6 +18,9 @@ class Feedback extends Component {
     console.log(assertions);
     return (
       <div className="feedback-page">
+        <Link to="/ranking">
+          <button type="submit" data-testid="btn-ranking">Ranking</button>
+        </Link>
         <header className={ styles.user_header }>
           <img
             className={ styles.user_image }
