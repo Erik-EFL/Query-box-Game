@@ -1,0 +1,38 @@
+.user_header {
+  align-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.336);
+  color: white;
+  display: flex;
+  height: 90px;
+  justify-content: space-around;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.user_image {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.user_info {
+  align-content: center;
+  align-items: center;
+  column-gap: 15px;
+  display: flex;
+  margin-right: -30px;
+}
+
+.player_container {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}
+
+.score_container {
+  display: flex;
+  flex-direction: column;
+  font-weight: 700;
+}

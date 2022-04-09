@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import styles from '../Css/Feedback.module.css';
+import Header from '../components/Header';
 // import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
 
 class Feedback extends Component {
@@ -12,27 +13,16 @@ class Feedback extends Component {
     return gravatarUrl;
   }
 
+  handlePlayAgain = () => {
+    const { history } = this.props;
+    history.push('/');
+  }
+
   render() {
-    const { player: { name, gravatarEmail } } = this.props;
     const { score, assertions } = this.props;
     return (
       <div className="feedback-page">
-        <header className={ styles.user_header }>
-          <img
-            className={ styles.user_image }
-            src={ this.gravatarHash(gravatarEmail) }
-            data-testid="header-profile-picture"
-            alt="profile-avatar"
-          />
-          <div>
-            Jogador:
-            <h2 data-testid="header-player-name">{name}</h2>
-          </div>
-          <div>
-            Pontuação:
-            <h2 data-testid="header-score">{score}</h2>
-          </div>
-        </header>
+        <Header />
         <main className={ styles.container_feedback }>
           <div className={ styles.feedback_container }>
             {assertions
@@ -47,22 +37,24 @@ class Feedback extends Component {
             <p
               data-testid="feedback-total-question"
             >
-              Você acertou
-              {' '}
               {assertions}
-              {' '}
-              questões!
+
             </p>
             <p
               data-testid="feedback-total-score"
             >
-              Um total de
-              {' '}
               {score}
-              {' '}
-              pontos
+
             </p>
           </div>
+          <hr />
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.handlePlayAgain }
+          >
+            Play Again
+          </button>
         </main>
       </div>
     );
@@ -76,12 +68,10 @@ const mapStateToProps = (state) => ({
 });
 
 Feedback.propTypes = {
-  receiveNewToken: PropTypes.func,
-  questions: PropTypes.array,
+  history: PropTypes.func,
   score: PropTypes.number,
   assertions: PropTypes.number,
   player: PropTypes.object,
-  questionOk: PropTypes.bool,
 }.isRequired;
 
 export default connect(mapStateToProps)(Feedback);
