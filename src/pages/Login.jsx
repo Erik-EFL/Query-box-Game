@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 import styles from '../Css/Login.module.css';
 import { login, tokenLogin } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
-import settingsIcon from '../settings.png';
-import triviaLogo from '../trivia.png';
+import queryLogo from '../Css/assets/query.png';
 
 class Login extends Component {
   constructor() {
@@ -49,19 +48,8 @@ class Login extends Component {
     const { btnDisabled } = this.state;
     return (
       <div className={ styles.loginMainDiv }>
+        <img src={ queryLogo } alt="logo-trivia" className={ styles.logo_trivia } />
         <div className="login-container">
-          <header>
-            <img src={ triviaLogo } alt="logo-trivia" className={ styles.logo_trivia } />
-          </header>
-          <div className="settings-button">
-            <Link to="/settings">
-              <img
-                src={ settingsIcon }
-                data-testid="btn-settings"
-                alt="Ícone do botão configurações"
-              />
-            </Link>
-          </div>
           <form className={ styles.formLogin }>
             <label htmlFor="nome" className={ styles.inputsLogin }>
               <input
@@ -85,17 +73,27 @@ class Login extends Component {
                 data-testid="input-gravatar-email"
               />
             </label>
-            <button
-              className={ styles.playBtn }
-              type="button"
-              data-testid="btn-play"
-              onClick={ this.handleClick }
-              disabled={ btnDisabled }
-            >
-              Play
-            </button>
+            <div className={ styles.buttonContainer }>
+              <button
+                className={ styles.playBtn }
+                type="button"
+                data-testid="btn-play"
+                onClick={ this.handleClick }
+                disabled={ btnDisabled }
+              >
+                Play
+              </button>
+              <Link
+                className={ styles.settings }
+                data-testid="btn-settings"
+                to="/settings"
+              >
+                Game Settings
+              </Link>
+            </div>
           </form>
         </div>
+        <footer>Todos os direitos reservados ao Main-Goup-18</footer>
       </div>
     );
   }
