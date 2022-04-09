@@ -95,50 +95,54 @@ class Questions extends Component {
             data-testid="header-profile-picture"
             alt="profile-avatar"
           />
-          <div>
+          <div className={ styles.user_info }>
             Jogador:
             <h2 data-testid="header-player-name">{name}</h2>
-          </div>
-          <div>
             Pontuação:
             <h2 data-testid="header-score">0</h2>
           </div>
         </header>
-        <h1>Questions</h1>
-        {
-          questions ? (
-            <>
-              <Timer />
-              <p
-                data-testid="question-category"
-              >
-                {questions[indexDQ].category}
+        <div className={ styles.mainQuestionContent }>
+          <div className={ styles.containerQuestions }>
+            <Timer />
+            {
+              questions && (
+                <div className={ styles.containerInfo }>
+                  <div className={ styles.questInfo }>
+                    <h3
+                      data-testid="question-category"
+                      className={ styles.titleQuestion }
+                    >
+                      {questions[indexDQ].category}
+                    </h3>
+                    <p
+                      data-testid="question-text"
+                      className={ styles.contentQuestion }
+                    >
+                      {questions[indexDQ].question}
+                    </p>
+                  </div>
+                  <div className={ styles.answers }>
+                    <p
+                      data-testid="answer-options"
+                    >
+                      {this.questionAnswerPrinter(questions[indexDQ])}
+                    </p>
+                  </div>
+                </div>
+              )
+            }
+          </div>
+          <button
+            className={ !questionOk ? styles.bottonInvis : styles.bottonVis }
+            type="submit"
+            onClick={ this.handleClick }
+            data-testid="btn-next"
+          >
+            Proxima pergunta
 
-              </p>
-              <p
-                data-testid="question-text"
-              >
-                {questions[indexDQ].question}
-
-              </p>
-              <p
-                data-testid="answer-options"
-              >
-                {this.questionAnswerPrinter(questions[indexDQ])}
-
-              </p>
-            </>) : (console.log(questions)
-          )
-        }
-        <button
-          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
-          type="submit"
-          onClick={ this.handleClick }
-          data-testid="btn-next"
-        >
-          Proxima pergunta
-
-        </button>
+          </button>
+        </div>
       </div>
     );
   }

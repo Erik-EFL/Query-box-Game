@@ -1,9 +1,93 @@
 .Questions {
   color: white;
+  margin: 0 auto;
+}
+
+.user_header {
+  background-color: rgba(0, 0, 0, 0.336);
+  display: flex;
+  position: absolute;
+  left: 0;
+  align-items: center;
+  align-content: center;
+  justify-content: space-around;
+  height: 90px;
+  width: 100%;
+}
+
+.mainQuestionContent{
+  max-width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 0 auto;
+}
+
+.user_image {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+}
+
+.user_info {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  column-gap: 15px;
+  margin-right: -30px;
+}
+
+.login-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerQuestions {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  margin-top: 150px;
+  width: 100%;
+  height: 450px;
+  border-radius: 16px;
+}
+
+.containerInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  margin-top: 24px;
+}
+
+.questInfo {
+  width: 50%;
+  height: 322px;
+  padding-left: 40px;
+  padding-top: 15px;
+}
+
+.answers {
+  width: 50%;
+  padding: 10px;
+}
+
+.titleQuestion {
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.contentQuestion {
+  font-size: 18px;
 }
 
 .incorrect_answer {
-
   height: 70px;
   width: 100%;
   color: white;
@@ -14,19 +98,12 @@
 }
 
 .correct_answer {
-
   height: 70px;
   width: 100%;
   margin-bottom: 5px;
   border-radius: 8px;
   background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
-}
-
-.user_header {
-  border: 3px solid rgb(6, 240, 15);
-  display: flex;
-  justify-content: space-around;
 }
 
 button {
@@ -37,21 +114,15 @@ button:disabled {
   color: black;
 }
 
-.login-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.botaoInvis {
+.bottonInvis {
   visibility: hidden;
 }
-.botaoVis {
+.bottonVis {
   visibility: visible;
-}
-
-.user_image {
-  border-radius: 50%;
+  padding: 8px;
+  border-radius: 8px;
+  margin-top: 15px;
+  border: none;
 }
 
 .question {

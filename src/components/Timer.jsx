@@ -3,7 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styles from '../Css/Timer.module.css';
 import { questionDone } from '../redux/actions/actions';
-import timerIcon from '../timer.png';
+import timerIcon from '../Css/assets/timer.png';
+import '../Css/Questions.module.css';
 
 class Timer extends React.Component {
   constructor() {
