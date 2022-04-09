@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
+// import { Link } from 'react-router-dom';
 import styles from '../Css/Feedback.module.css';
 import Header from '../components/Header';
 // import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
@@ -18,10 +19,18 @@ class Feedback extends Component {
     history.push('/');
   }
 
+  handleRanking = () => {
+    const { history } = this.props;
+    history.push('/ranking');
+  }
+
   render() {
     const { score, assertions } = this.props;
     return (
       <div className="feedback-page">
+        {/* <Link to="/ranking">
+          <button type="button" data-testid="btn-ranking">Ranking</button>
+        </Link> */}
         <Header />
         <main className={ styles.container_feedback }>
           <div className={ styles.feedback_container }>
@@ -48,6 +57,13 @@ class Feedback extends Component {
             </p>
           </div>
           <hr />
+          <button
+            type="button"
+            data-testid="btn-ranking"
+            onClick={ this.handleRanking }
+          >
+            Ranking
+          </button>
           <button
             type="button"
             data-testid="btn-play-again"
