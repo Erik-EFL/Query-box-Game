@@ -129,7 +129,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ, timer, feadbackRedirect } = this.state;
+    const { indexDQ } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
     return (
