@@ -1,6 +1,10 @@
 import {
   API_REQUEST_SUCCESS,
-  LOGIN, QUESTION, QUESTION_DONE, REQUEST_ERROR, TOKEN
+  LOGIN,
+  QUESTION_POINTS,
+  QUESTION_DONE,
+  REQUEST_ERROR,
+  TOKEN,
 } from './actionsType';
 
 export const login = (gravatarEmail, name) => ({
@@ -9,8 +13,8 @@ export const login = (gravatarEmail, name) => ({
   name,
 });
 
-export const question = (score, assertions) => ({
-  type: QUESTION,
+export const questionPoints = (score, assertions) => ({
+  type: QUESTION_POINTS,
   score,
   assertions,
 });
@@ -29,7 +33,8 @@ export const apiError = (error) => ({
   error,
 });
 
-export const questionDone = (bool) => ({
+export const questionDone = (bool, time) => ({
   type: QUESTION_DONE,
   responded: bool,
+  time,
 });
