@@ -3,24 +3,22 @@
 }
 
 .incorrect_answer {
-
-  height: 70px;
-  width: 100%;
-  color: white;
-  margin-bottom: 5px;
-  border-radius: 8px;
   background-color: red;
   border: 3px solid red;
+  border-radius: 8px;
+  color: white;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 .correct_answer {
-
-  height: 70px;
-  width: 100%;
-  margin-bottom: 5px;
-  border-radius: 8px;
   background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
+  border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
 .user_header {
@@ -46,6 +44,7 @@ button:disabled {
 .botaoInvis {
   visibility: hidden;
 }
+
 .botaoVis {
   visibility: visible;
 }
@@ -55,8 +54,33 @@ button:disabled {
 }
 
 .question {
-  height: 70px;
-  width: 100%;
-  margin-bottom: 5px;
   border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.timer_container {
+  align-items: center;
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  width: 100px;
+}
+
+.timer_icon {
+  position: relative;
+  width: 75px;
+  z-index: 0;
+}
+
+.timer_text {
+  background-color: lightgoldenrodyellow;
+  border-radius: 3px;
+  color: black;
+  font-size: 24px;
+  font-weight: 700;
+  margin-top: 10px;
+  position: absolute;
+  z-index: 1;
 }

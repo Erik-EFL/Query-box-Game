@@ -15,32 +15,32 @@
 }
 
 .inputsLogin {
+  align-items: center;
   color: white;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
   margin-bottom: 10px;
 }
 
 .loginEmailInput, .loginNameInput {
-  padding: 4px 8px;
-  border-radius: 10px;
   background-color: rgb(43, 43, 43);
-  outline: none;
   border: 1px solid;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgb(19, 19, 19);
   color: white;
-  box-shadow: 0px 4px 4px rgb(19, 19, 19);
+  outline: none;
+  padding: 4px 8px;
 }
 
 .playBtn {
-  padding: 4px 8px;
-  border-radius: 10px;
   background-color: rgb(43, 43, 43);
-  outline: none;
   border: 1px solid;
+  border-radius: 10px;
+  box-shadow: 0 4px 4px rgb(19, 19, 19);
   color: white;
-  box-shadow: 0px 4px 4px rgb(19, 19, 19);
+  outline: none;
+  padding: 4px 8px;
   padding-left: 85px;
   padding-right: 85px;
 }
@@ -54,8 +54,8 @@
 
 .logo_trivia {
   display: block;
-  padding-top: 100px;
-  margin: 0 auto;
   height: 400px;
+  margin: 0 auto;
+  padding-top: 100px;
   width: 800px;
 }
