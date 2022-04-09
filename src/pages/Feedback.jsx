@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
-import styles from '../Css/Questions.module.css';
-import feedbacksMessages from './helpers';
+import styles from '../Css/Feedback.module.css';
+// import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
 
 class Feedback extends Component {
   gravatarHash = (userEmail) => {
@@ -13,8 +13,8 @@ class Feedback extends Component {
   }
 
   render() {
-    const { player: { name, gravatarEmail, score, assertions } } = this.props;
-    console.log(assertions);
+    const { player: { name, gravatarEmail } } = this.props;
+    const { score, assertions } = this.props;
     return (
       <div className="feedback-page">
         <header className={ styles.user_header }>
@@ -33,13 +33,36 @@ class Feedback extends Component {
             <h2 data-testid="header-score">{score}</h2>
           </div>
         </header>
-        <main>
-          <h1> Feedback </h1>
-
-          {assertions
+        <main className={ styles.container_feedback }>
+          <div className={ styles.feedback_container }>
+            {assertions
           && assertions >= Number('3')
-            ? <p data-testid="feedback-text">{ feedbacksMessages.done }</p>
-            : <p data-testid="feedback-text">{ feedbacksMessages.beBetter }</p>}
+              ? <h2 data-testid="feedback-text">Well Done!</h2>
+              : (
+                <h2 data-testid="feedback-text">
+                  Could be better...
+                </h2>
+              )}
+            <hr />
+            <p
+              data-testid="feedback-total-question"
+            >
+              Você acertou
+              {' '}
+              {assertions}
+              {' '}
+              questões!
+            </p>
+            <p
+              data-testid="feedback-total-score"
+            >
+              Um total de
+              {' '}
+              {score}
+              {' '}
+              pontos
+            </p>
+          </div>
         </main>
       </div>
     );
@@ -48,11 +71,15 @@ class Feedback extends Component {
 
 const mapStateToProps = (state) => ({
   player: state.player,
+  score: state.player.score,
+  assertions: state.player.assertions,
 });
 
 Feedback.propTypes = {
   receiveNewToken: PropTypes.func,
   questions: PropTypes.array,
+  score: PropTypes.number,
+  assertions: PropTypes.number,
   player: PropTypes.object,
   questionOk: PropTypes.bool,
 }.isRequired;

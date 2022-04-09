@@ -6,6 +6,8 @@ const INICIAL_STATE = {
   score: 0,
   gravatarEmail: '',
 };
+// const { score/* , assertions */ } = INICIAL_STATE;
+// window.localStorage.setItem('player', score);
 
 const player = (state = INICIAL_STATE, action) => {
   switch (action.type) {

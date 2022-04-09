@@ -132,6 +132,7 @@ class Questions extends Component {
     const { indexDQ, feedbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
+    localStorage.setItem('score', 'score');
     return (
       <div className={ styles.Questions }>
         <header className={ styles.user_header }>
