@@ -129,7 +129,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ } = this.state;
+    const { indexDQ, feadbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
     return (
@@ -179,15 +179,27 @@ class Questions extends Component {
               )
             }
           </div>
-          <button
-            className={ !questionOk ? styles.bottonInvis : styles.bottonVis }
-            type="submit"
-            onClick={ this.handleClick }
-            data-testid="btn-next"
-          >
-            Proxima pergunta
+          {feadbackRedirect ? (
+            <Link to="/feadback">
+              <button
+                className={ questionOk ? styles.buttonVis : styles.buttonInvis }
+                type="submit"
+                onClick={ this.handleClick }
+                data-testid="btn-next"
+              >
+                Próxima pergunta
 
-          </button>
+              </button>
+            </Link>)
+            : (
+              <button
+                className={ questionOk ? styles.buttonVis : styles.buttonInvis }
+                type="submit"
+                onClick={ this.handleClick }
+                data-testid="btn-next"
+              >
+                Próxima pergunta
+              </button>)}
         </div>
       </div>
     );

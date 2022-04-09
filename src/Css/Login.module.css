@@ -5,14 +5,14 @@
 }
 
 .loginMainDiv {
+  align-content: center;
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  align-content: center;
+  margin: 0 auto;
   max-width: 900px;
   text-align: center;
-  margin: 0 auto;
 }
 
 .logo_trivia {
@@ -41,10 +41,10 @@
   background-color: rgb(43, 43, 43);
   border: none;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgb(19, 19, 19);
+  box-shadow: 0 4px 4px rgb(19, 19, 19);
   color: rgba(209, 207, 207, 0.514);
   outline: none;
-  padding: 8px 8px;
+  padding: 8px;
   width: 250px;
 }
 
@@ -52,38 +52,39 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  width: 250px;
   padding: 3px 54px;
+  width: 250px;
 }
 
 .playBtn {
   background-color: rgb(76, 3, 158);
   border: none;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgb(19, 19, 19);
-  color: rgb(255, 255, 255);
-  outline: none;
-  font-size: 16px;
-  padding: 8px 8px;
+  box-shadow: 0 4px 4px rgb(19, 19, 19);
+  color: white;
   cursor: pointer;
+  font-size: 16px;
+  outline: none;
+  padding: 8px;
 }
 
 .playBtn:hover {
   background-color: white;
   color: black;
 }
+
 .settings {
-  margin-top: 8px;
-  padding: 8px 8px;
+  background-color: rgb(43, 43, 43);
   border: none;
   border-radius: 10px;
-  box-shadow: 0px 4px 4px rgb(19, 19, 19);
-  color: rgb(255, 255, 255);
-  background-color: rgb(43, 43, 43);
-  outline: none;
-  text-decoration: none;
-  font-size: 16px;
+  box-shadow: 0 4px 4px rgb(19, 19, 19);
+  color: white;
   cursor: pointer;
+  font-size: 16px;
+  margin-top: 8px;
+  outline: none;
+  padding: 8px;
+  text-decoration: none;
 }
 
 .settings:hover {
@@ -92,9 +93,9 @@
 }
 
 footer {
+  bottom: 0;
+  color: rgba(240, 248, 255, 0.438);
+  font-weight: 700;
   padding: 16px;
   position: absolute;
-  bottom: 0px;
-  font-weight: 700;
-  color: rgba(240, 248, 255, 0.438);
 }
