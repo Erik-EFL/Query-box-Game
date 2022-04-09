@@ -1,5 +1,90 @@
 .Questions {
   color: white;
+  margin: 0 auto;
+}
+
+.user_header {
+  align-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.336);
+  display: flex;
+  height: 90px;
+  justify-content: space-around;
+  left: 0;
+  position: absolute;
+  width: 100%;
+}
+
+.mainQuestionContent {
+  align-content: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 80%;
+}
+
+.user_image {
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.user_info {
+  align-content: center;
+  align-items: center;
+  column-gap: 15px;
+  display: flex;
+  margin-right: -30px;
+}
+
+.login-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.containerQuestions {
+  align-content: center;
+  align-items: center;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  justify-content: center;
+  margin-top: 150px;
+  position: relative;
+  width: 100%;
+}
+
+.containerInfo {
+  align-content: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.questInfo {
+  height: 322px;
+  padding-left: 40px;
+  padding-top: 15px;
+  width: 50%;
+}
+
+.answers {
+  padding: 10px;
+  width: 50%;
+}
+
+.titleQuestion {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.contentQuestion {
+  font-size: 18px;
 }
 
 .incorrect_answer {
@@ -21,12 +106,6 @@
   width: 100%;
 }
 
-.user_header {
-  border: 3px solid rgb(6, 240, 15);
-  display: flex;
-  justify-content: space-around;
-}
-
 button {
   background-color: white;
 }
@@ -35,22 +114,16 @@ button:disabled {
   color: black;
 }
 
-.login-container {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-
-.botaoInvis {
+.buttonInvis {
   visibility: hidden;
 }
 
-.botaoVis {
+.buttonVis {
+  border: none;
+  border-radius: 8px;
+  margin-top: 15px;
+  padding: 8px;
   visibility: visible;
-}
-
-.user_image {
-  border-radius: 50%;
 }
 
 .question {

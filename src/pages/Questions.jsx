@@ -2,9 +2,10 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints } from '../redux/actions/actions';
-import timerIcon from '../timer.png';
+import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
@@ -14,6 +15,7 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
+      feadbackRedirect: false,
       timer: 30,
     };
   }
@@ -48,6 +50,10 @@ class Questions extends Component {
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo, timer: 30 });
      this.timerInterval();
+     const questionsLimit = 3;
+     if (indexDQ === questionsLimit) {
+       this.setState({ feadbackRedirect: true });
+     }
    }
 
   randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
@@ -123,10 +129,9 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ, timer } = this.state;
+    const { indexDQ, feadbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
-
     return (
       <div className={ styles.Questions }>
         <header className={ styles.user_header }>
@@ -136,53 +141,66 @@ class Questions extends Component {
             data-testid="header-profile-picture"
             alt="profile-avatar"
           />
-          <div>
+          <div className={ styles.user_info }>
             Jogador:
             <h2 data-testid="header-player-name">{name}</h2>
-          </div>
-          <div>
             Pontuação:
             <h2 data-testid="header-score">{score}</h2>
           </div>
         </header>
-        <h1>Questions</h1>
-        {
-          questions ? (
-            <>
-              <div className={ styles.timer_container }>
-                <span className={ styles.timer_text }>{ timer }</span>
-                <img className={ styles.timer_icon } src={ timerIcon } alt="timer" />
-              </div>
-              <p
-                data-testid="question-category"
+        <div className={ styles.mainQuestionContent }>
+          <div className={ styles.containerQuestions }>
+            <Timer />
+            {
+              questions && (
+                <div className={ styles.containerInfo }>
+                  <div className={ styles.questInfo }>
+                    <h3
+                      data-testid="question-category"
+                      className={ styles.titleQuestion }
+                    >
+                      {questions[indexDQ].category}
+                    </h3>
+                    <p
+                      data-testid="question-text"
+                      className={ styles.contentQuestion }
+                    >
+                      {questions[indexDQ].question}
+                    </p>
+                  </div>
+                  <div className={ styles.answers }>
+                    <p
+                      data-testid="answer-options"
+                    >
+                      {this.questionAnswerPrinter(questions[indexDQ])}
+                    </p>
+                  </div>
+                </div>
+              )
+            }
+          </div>
+          {feadbackRedirect ? (
+            <Link to="/feadback">
+              <button
+                className={ questionOk ? styles.buttonVis : styles.buttonInvis }
+                type="submit"
+                onClick={ this.handleClick }
+                data-testid="btn-next"
               >
-                {questions[indexDQ].category}
+                Próxima pergunta
 
-              </p>
-              <p
-                data-testid="question-text"
+              </button>
+            </Link>)
+            : (
+              <button
+                className={ questionOk ? styles.buttonVis : styles.buttonInvis }
+                type="submit"
+                onClick={ this.handleClick }
+                data-testid="btn-next"
               >
-                {questions[indexDQ].question}
-
-              </p>
-              <p
-                data-testid="answer-options"
-              >
-                {this.questionAnswerPrinter(questions[indexDQ])}
-
-              </p>
-            </>) : (console.log(questions)
-          )
-        }
-        <button
-          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
-          type="submit"
-          onClick={ this.handleClick }
-          data-testid="btn-next"
-        >
-          Proxima pergunta
-
-        </button>
+                Próxima pergunta
+              </button>)}
+        </div>
       </div>
     );
   }
