@@ -15,7 +15,7 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
-      feadbackRedirect: false,
+      feedbackRedirect: false,
       timer: 30,
     };
   }
@@ -52,7 +52,7 @@ class Questions extends Component {
      this.timerInterval();
      const questionsLimit = 3;
      if (indexDQ === questionsLimit) {
-       this.setState({ feadbackRedirect: true });
+       this.setState({ feedbackRedirect: true });
      }
    }
 
@@ -129,7 +129,7 @@ class Questions extends Component {
   }
 
   render() {
-    const { indexDQ, feadbackRedirect } = this.state;
+    const { indexDQ, feedbackRedirect } = this.state;
     const { questions, questionOk } = this.props;
     const { player: { name, gravatarEmail, score } } = this.props;
     return (
@@ -179,8 +179,8 @@ class Questions extends Component {
               )
             }
           </div>
-          {feadbackRedirect ? (
-            <Link to="/feadback">
+          {feedbackRedirect ? (
+            <Link to="/feedback">
               <button
                 className={ questionOk ? styles.buttonVis : styles.buttonInvis }
                 type="submit"

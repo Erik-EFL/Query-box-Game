@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import styles from '../Css/Questions.module.css';
+import feedbacksMessages from './helpers';
 
 class Feedback extends Component {
   gravatarHash = (userEmail) => {
@@ -12,10 +13,10 @@ class Feedback extends Component {
   }
 
   render() {
-    const { player: { name, gravatarEmail, score } } = this.props;
-
+    const { player: { name, gravatarEmail, score, assertions } } = this.props;
+    console.log(assertions);
     return (
-      <div className="feadback-page">
+      <div className="feedback-page">
         <header className={ styles.user_header }>
           <img
             className={ styles.user_image }
@@ -32,8 +33,14 @@ class Feedback extends Component {
             <h2 data-testid="header-score">{score}</h2>
           </div>
         </header>
-        <h1> Feedback </h1>
-        <p data-testid="feedback-text">Mensagem de feedback...</p>
+        <main>
+          <h1> Feedback </h1>
+
+          {assertions
+          && assertions >= Number('3')
+            ? <p data-testid="feedback-text">{ feedbacksMessages.done }</p>
+            : <p data-testid="feedback-text">{ feedbacksMessages.beBetter }</p>}
+        </main>
       </div>
     );
   }
