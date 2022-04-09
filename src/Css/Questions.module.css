@@ -1,28 +1,30 @@
-* {
-  background: #282c34;
-}
-
 .Questions {
   color: white;
 }
 
-.incorrect-answer {
+.incorrect_answer {
+  background-color: red;
   border: 3px solid red;
+  border-radius: 8px;
+  color: white;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
-.correct-answer {
+.correct_answer {
+  background-color: rgb(6, 240, 15);
   border: 3px solid rgb(6, 240, 15);
+  border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
 }
 
-.user-header {
+.user_header {
   border: 3px solid rgb(6, 240, 15);
   display: flex;
   justify-content: space-around;
-}
-
-.logo-trivia {
-  margin: 150px;
-  width: 600px;
 }
 
 button {
@@ -39,7 +41,26 @@ button:disabled {
   flex-direction: column;
 }
 
-.timer-container {
+.botaoInvis {
+  visibility: hidden;
+}
+
+.botaoVis {
+  visibility: visible;
+}
+
+.user_image {
+  border-radius: 50%;
+}
+
+.question {
+  border-radius: 8px;
+  height: 70px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.timer_container {
   align-items: center;
   display: flex;
   height: 100px;
@@ -47,13 +68,13 @@ button:disabled {
   width: 100px;
 }
 
-.timer-icon {
+.timer_icon {
   position: relative;
   width: 75px;
   z-index: 0;
 }
 
-.timer-text {
+.timer_text {
   background-color: lightgoldenrodyellow;
   border-radius: 3px;
   color: black;
@@ -63,4 +84,3 @@ button:disabled {
   position: absolute;
   z-index: 1;
 }
-

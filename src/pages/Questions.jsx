@@ -4,8 +4,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints } from '../redux/actions/actions';
-import './Questions.css';
 import timerIcon from '../timer.png';
+import styles from '../Css/Questions.module.css';
 // import fetchToken from '../Services/fetchToken';
 // import fetchDataQuestions from '../Services/fetchQuestions';
 
@@ -36,7 +36,7 @@ class Questions extends Component {
      if (timer > 0 && questionOk === false) {
        this.setState({ timer: timer - 1 });
      } else {
-       questionResponded(true, timer);
+       questionResponded(true);
        clearInterval(interval);
      }
    }
@@ -47,7 +47,6 @@ class Questions extends Component {
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo, timer: 30 });
-
      this.timerInterval();
    }
 
@@ -58,7 +57,7 @@ class Questions extends Component {
     const { questionResponded, questions } = this.props;
     questionResponded(true);
     const { difficulty } = questions[indexDQ];
-    if (target.id === 'correct') {
+    if (target.id === 'correct-answer') {
       this.scoreCalc(timer, difficulty);
     }
   }
@@ -78,14 +77,13 @@ class Questions extends Component {
 
   questionAnswerPrinter = (question) => {
     const { questionOk } = this.props;
-    const botoes = question.incorrect_answers.map((element, index) => (
+    let botoes = question.incorrect_answers.map((element, index) => (
       <button
         key={ element }
         data-testid={ `wrong-answer-${index}` }
         type="button"
         onClick={ this.handleClickAnswer }
-        id="incorrect"
-        className={ questionOk ? 'incorrect-answer' : '' }
+        className={ questionOk ? styles.incorrect_answer : styles.question }
         disabled={ questionOk }
       >
         {element}
@@ -96,17 +94,17 @@ class Questions extends Component {
       <button
         key="correct"
         data-testid="correct-answer"
+        id="correct-answer"
         type="button"
         onClick={ this.handleClickAnswer }
-        id="correct"
-        className={ questionOk ? 'correct-answer' : '' }
+        className={ questionOk ? styles.correct_answer : styles.question }
         disabled={ questionOk }
       >
         {question.correct_answer}
 
       </button>,
     );
-    this.shuffle(botoes);
+    botoes = this.shuffle(botoes);
     return botoes;
   }
 
@@ -130,9 +128,10 @@ class Questions extends Component {
     const { player: { name, gravatarEmail, score } } = this.props;
 
     return (
-      <div className="Questions">
-        <header className="user-header">
+      <div className={ styles.Questions }>
+        <header className={ styles.user_header }>
           <img
+            className={ styles.user_image }
             src={ this.gravatarHash(gravatarEmail) }
             data-testid="header-profile-picture"
             alt="profile-avatar"
@@ -150,9 +149,9 @@ class Questions extends Component {
         {
           questions ? (
             <>
-              <div className="timer-container">
-                <span className="timer-text">{ timer }</span>
-                <img className="timer-icon" src={ timerIcon } alt="timer" />
+              <div className={ styles.timer_container }>
+                <span className={ styles.timer_text }>{ timer }</span>
+                <img className={ styles.timer_icon } src={ timerIcon } alt="timer" />
               </div>
               <p
                 data-testid="question-category"
@@ -175,15 +174,15 @@ class Questions extends Component {
             </>) : (console.log(questions)
           )
         }
-        {questionOk ? (
-          <button
-            type="submit"
-            onClick={ this.handleClick }
-            disabled={ !questionOk }
-          >
-            Proxima pergunta
+        <button
+          className={ !questionOk ? styles.botaoInvis : styles.botaoVis }
+          type="submit"
+          onClick={ this.handleClick }
+          data-testid="btn-next"
+        >
+          Proxima pergunta
 
-          </button>) : ''}
+        </button>
       </div>
     );
   }
