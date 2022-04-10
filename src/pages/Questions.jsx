@@ -23,24 +23,6 @@ class Questions extends Component {
    componentDidMount = async () => {
      const { receiveQuestions } = this.props;
      receiveQuestions();
-     this.timerInterval();
-   }
-
-   timerInterval = () => {
-     const oneSecond = 1000;
-     const interval = setInterval(this.startWatch, oneSecond);
-     this.setState({ interval });
-   }
-
-   startWatch = () => {
-     const { timer, interval } = this.state;
-     const { questionResponded, questionOk } = this.props;
-     if (timer > 0 && questionOk === false) {
-       this.setState({ timer: timer - 1 });
-     } else {
-       questionResponded(true);
-       clearInterval(interval);
-     }
    }
 
    handleClick = () => {
@@ -49,14 +31,11 @@ class Questions extends Component {
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
      this.setState({ indexDQ: valorNovo, timer: 30 });
-     this.timerInterval();
      const questionsLimit = 3;
      if (indexDQ === questionsLimit) {
        this.setState({ feedbackRedirect: true });
      }
    }
-
-  randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
 
   handleClickAnswer = ({ target }) => {
     const { indexDQ, timer } = this.state;
@@ -160,13 +139,17 @@ class Questions extends Component {
                       data-testid="question-category"
                       className={ styles.titleQuestion }
                     >
-                      {questions[indexDQ].category}
+                      {questions[indexDQ].category.replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, '\'')
+                        .replace(/&eacute;/g, 'é')}
                     </h3>
                     <p
                       data-testid="question-text"
                       className={ styles.contentQuestion }
                     >
-                      {questions[indexDQ].question}
+                      {questions[indexDQ].question.replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, '\'')
+                        .replace(/&eacute;/g, 'é')}
                     </p>
                   </div>
                   <div className={ styles.answers }>

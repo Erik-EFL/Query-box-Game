@@ -47,20 +47,14 @@ class Feedback extends Component {
             <p
               data-testid="feedback-total-question"
             >
-              Você acertou
-              {' '}
               {assertions}
-              {' '}
-              questões!
+
             </p>
             <p
               data-testid="feedback-total-score"
             >
-              Um total de
-              {' '}
               {score}
-              {' '}
-              pontos
+
             </p>
           </div>
         </main>
