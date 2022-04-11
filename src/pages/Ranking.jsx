@@ -9,6 +9,18 @@ class Ranking extends Component {
     history.push('/');
   }
 
+  rankList = () => {
+    const param = -1;
+    const currentStorage = JSON.parse(localStorage.getItem('ranking'));
+    const rank = currentStorage.sort((a, b) => {
+      if (a.score > b.score) {
+        return param;
+      }
+      return true;
+    }); // organiza o rank pelo score
+    return rank;
+  }
+
   render() {
     return (
       <div className="ranking-page">
@@ -20,6 +32,13 @@ class Ranking extends Component {
         >
           Go Home
         </button>
+        {this.rankList().map((player) => (
+          <div key={ player.index }>
+            <img src={ player.gravatar } alt={ `gravatar${player.index}` } />
+            <p data-testid={ `player-name-${player.index}` }>{player.name}</p>
+            <p data-testid={ `player-score-${player.index}` }>{player.score}</p>
+          </div>
+        ))}
       </div>
     );
   }
