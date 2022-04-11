@@ -183,7 +183,6 @@ class Questions extends Component {
                         <div data-testid="answer-options">{this.questionPrinter()}</div>
                       )}
                     </p>
-                    </div>
                   </div>
                 </div>
               )
