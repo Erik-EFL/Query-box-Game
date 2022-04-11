@@ -28,7 +28,7 @@ class Questions extends Component {
      const wrong = question.incorrect_answers;
      const incorrects = wrong.map((incorrect) => ({ incorrect }));
      const correct = [{ correct: question.correct_answer }];
-     const list = [...correct, ...incorrects];
+     const list = [...incorrects, ...correct];
      const newList = list.sort(() => Math.random() - Number('0.5'));
      this.setState({ organizedQuestions: newList });
    }
@@ -102,12 +102,14 @@ class Questions extends Component {
   questionPrinter = () => {
     const { questionOk } = this.props;
     const { organizedQuestions, btnDisabled } = this.state;
-    return organizedQuestions.map((element, index) => {
+    let qualquer = 0;
+    return organizedQuestions.map((element) => {
       if (element.incorrect) {
+        qualquer += 1;
         return (
           <button
             key={ element.incorrect }
-            data-testid={ `wrong-answer-${index}` }
+            data-testid={ `wrong-answer-${qualquer - 1}` }
             type="button"
             onClick={ this.handleClickAnswer }
             className={ questionOk ? styles.incorrect_answer : styles.question }
@@ -170,11 +172,9 @@ class Questions extends Component {
                     </p>
                   </div>
                   <div className={ styles.answers }>
-                    <p
-                      data-testid="answer-options"
-                    >
+                    <p>
                       {organizedQuestions && (
-                        <div>{this.questionPrinter()}</div>
+                        <div data-testid="answer-options">{this.questionPrinter()}</div>
                       )}
                     </p>
                   </div>
