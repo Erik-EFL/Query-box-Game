@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import styles from '../Css/Feedback.module.css';
 import Header from '../components/Header';
+
 // import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
 
 class Feedback extends Component {
@@ -24,10 +25,34 @@ class Feedback extends Component {
     history.push('/ranking');
   }
 
+  saveStoreRanking = () => {
+    const { player: { email, score, name } } = this.props;
+    const gravatarLink = this.gravatarHash(email);
+    const currentStorage = JSON.parse(localStorage.getItem('ranking'));
+    const conteudo = [{
+      index: 0,
+      gravatar: gravatarLink,
+      score,
+      name,
+    }];
+    if (!currentStorage) {
+      localStorage.setItem('ranking', JSON.stringify(conteudo));
+    }
+    if (currentStorage) {
+      conteudo[0].index = currentStorage.length;
+      currentStorage.push(...conteudo);
+      localStorage.setItem('ranking', JSON.stringify(currentStorage));
+    }
+  }
+
   render() {
     const { score, assertions } = this.props;
     return (
       <div className="feedback-page">
+        {this.saveStoreRanking()}
+        {/* <Link to="/ranking">
+          <button type="button" data-testid="btn-ranking">Ranking</button>
+        </Link> */}
         <Header />
         <main className={ styles.container_feedback }>
           <div className={ styles.feedback_card }>

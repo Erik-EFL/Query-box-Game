@@ -8,3 +8,5 @@ export const QUESTION_DONE = 'QUESTION_DONE';
 export const TOKEN = 'TOKEN';
 export const QUESTION_POINTS = 'QUESTION';
 export const QUESTION_TIME = 'QUESTION_TIME';
+export const TIMER_QUESTION = 'TIMER_QUESTION';
+export const TIMER_INTERVAL = 'TIMER_INTERVAL';

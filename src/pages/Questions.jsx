@@ -2,14 +2,10 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { questionDataThunk } from '../redux/actions/actionQuestions';
-import { questionDone, questionPoints } from '../redux/actions/actions';
+import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
 import Header from '../components/Header';
-// import fetchToken from '../Services/fetchToken';
-// import fetchDataQuestions from '../Services/fetchQuestions';
 
 class Questions extends Component {
   constructor() {
@@ -17,34 +13,76 @@ class Questions extends Component {
     this.state = {
       indexDQ: 0,
       feedbackRedirect: false,
-      timer: 30,
+      btnDisabled: false,
     };
   }
 
    componentDidMount = async () => {
-     const { receiveQuestions } = this.props;
-     receiveQuestions();
+     const { questions } = this.props;
+     const { indexDQ } = this.state;
+     this.organizeQuestions(questions[indexDQ]);
+     this.startInterval();
    }
 
+   organizeQuestions = (question) => {
+     const wrong = question.incorrect_answers;
+     const incorrects = wrong.map((incorrect) => ({ incorrect }));
+     const correct = [{ correct: question.correct_answer }];
+     const list = [...correct, ...incorrects];
+     const newList = list.sort(() => Math.random() - 0.5);
+     this.setState({ organizedQuestions: newList });
+   }
+
+   startInterval = () => {
+     const oneSecond = 1000;
+     const interval = setInterval(this.startWatch, oneSecond);
+     this.setState({ interval });
+   }
+
+  startWatch = () => {
+    const { interval } = this.state;
+    const { questionResponded, timerQuestion, dispatchTime, questionOk } = this.props;
+    if (timerQuestion > 0 && questionOk === false) {
+      const newTime = timerQuestion - 1;
+      dispatchTime(newTime);
+    } else {
+      this.setState({ btnDisabled: true });
+      questionResponded(true);
+      clearInterval(interval);
+    }
+  }
+
    handleClick = () => {
-     const { questionResponded } = this.props;
+     const { questionResponded, dispatchTime, questions } = this.props;
+     const time = 30;
+     dispatchTime(time);
+     this.startInterval();
      questionResponded(false);
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo, timer: 30 });
+     this.organizeQuestions(questions[valorNovo]);
+     this.setState({ indexDQ: valorNovo, btnDisabled: false });
      const questionsLimit = 3;
      if (indexDQ === questionsLimit) {
        this.setState({ feedbackRedirect: true });
      }
    }
 
+   redirectFeedback = () => {
+     const { interval } = this.state;
+     const { history } = this.props;
+     clearInterval(interval);
+     history.push('/feedback');
+   }
+
   handleClickAnswer = ({ target }) => {
-    const { indexDQ, timer } = this.state;
-    const { questionResponded, questions } = this.props;
+    this.setState({ btnDisabled: true });
+    const { indexDQ } = this.state;
+    const { questionResponded, questions, timerQuestion } = this.props;
     questionResponded(true);
     const { difficulty } = questions[indexDQ];
-    if (target.id === 'correct-answer') {
-      this.scoreCalc(timer, difficulty);
+    if (target.id === 'correct') {
+      this.scoreCalc(timerQuestion, difficulty);
     }
   }
 
@@ -61,39 +99,38 @@ class Questions extends Component {
     dispatchScore(calculation, newAssertions);
   }
 
-  questionAnswerPrinter = (question) => {
+  questionPrinter = () => {
     const { questionOk } = this.props;
-    let botoes = question.incorrect_answers.map((element, index) => (
-      <button
-        key={ element }
-        data-testid={ `wrong-answer-${index}` }
-        type="button"
-        onClick={ this.handleClickAnswer }
-        className={ questionOk ? styles.incorrect_answer : styles.question }
-        disabled={ questionOk }
-      >
-        {element}
-
-      </button>
-    ));
-    botoes.push(
-      <button
-        key="correct"
-        data-testid="correct-answer"
-        id="correct-answer"
-        type="button"
-        onClick={ this.handleClickAnswer }
-        className={ questionOk ? styles.correct_answer : styles.question }
-        disabled={ questionOk }
-      >
-        {question.correct_answer}
-
-      </button>,
-    );
-    botoes = this.shuffle(botoes).replace(/&quot;/g, '"')
-      .replace(/&#039;/g, '\'')
-      .replace(/&eacute;/g, 'é');
-    return botoes;
+    const { organizedQuestions, btnDisabled } = this.state;
+    return organizedQuestions.map((element, index) => {
+      if (element.incorrect) {
+        return (
+          <button
+            key={ element.incorrect }
+            data-testid={ `wrong-answer-${index}` }
+            type="button"
+            onClick={ this.handleClickAnswer }
+            className={ questionOk ? styles.incorrect_answer : styles.question }
+            disabled={ btnDisabled }
+          >
+            {element.incorrect}
+          </button>
+        );
+      }
+      return (
+        <button
+          key="correct"
+          data-testid="correct-answer"
+          id="correct"
+          type="button"
+          onClick={ this.handleClickAnswer }
+          className={ questionOk ? styles.correct_answer : styles.question }
+          disabled={ btnDisabled }
+        >
+          {element.correct}
+        </button>
+      );
+    });
   }
 
   gravatarHash = (userEmail) => {
@@ -102,18 +139,9 @@ class Questions extends Component {
     return gravatarUrl;
   }
 
-  shuffle(a) {
-    for (let i = a.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
   render() {
-    const { indexDQ, feedbackRedirect } = this.state;
+    const { indexDQ, feedbackRedirect, organizedQuestions } = this.state;
     const { questions, questionOk } = this.props;
-    localStorage.setItem('score', 'score');
     return (
       <div className={ styles.Questions }>
         <Header />
@@ -145,7 +173,9 @@ class Questions extends Component {
                     <p
                       data-testid="answer-options"
                     >
-                      {this.questionAnswerPrinter(questions[indexDQ])}
+                      {organizedQuestions && (
+                        <div>{this.questionPrinter()}</div>
+                      )}
                     </p>
                   </div>
                 </div>
@@ -153,21 +183,20 @@ class Questions extends Component {
             }
           </div>
           {feedbackRedirect ? (
-            <Link to="/feedback">
+            <div>
               <button
                 className={ questionOk ? styles.buttonVis : styles.buttonInvis }
                 type="submit"
-                onClick={ this.handleClick }
+                onClick={ this.redirectFeedback }
                 data-testid="btn-next"
               >
                 Próxima pergunta
-
               </button>
-            </Link>)
+            </div>)
             : (
               <button
                 className={ questionOk ? styles.buttonVis : styles.buttonInvis }
-                type="submit"
+                type="button"
                 onClick={ this.handleClick }
                 data-testid="btn-next"
               >
@@ -184,12 +213,13 @@ const mapStateToProps = (state) => ({
   player: state.player,
   questions: state.questions.questions.results,
   questionOk: state.questionDone.responded,
+  timerQuestion: state.timerQuestion.timer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveQuestions: () => dispatch(questionDataThunk()),
   questionResponded: (bool) => dispatch(questionDone(bool)),
   dispatchScore: (score, assertions) => dispatch(questionPoints(score, assertions)),
+  dispatchTime: (time) => dispatch(timerAction(time)),
 });
 
 Questions.propTypes = {
