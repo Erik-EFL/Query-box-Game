@@ -68,13 +68,14 @@ class Feedback extends Component {
             <p
               data-testid="feedback-total-question"
             >
-              {assertions}
+              {`You got ${assertions} questions right!`}
 
             </p>
             <p
               data-testid="feedback-total-score"
             >
-              {score}
+
+              {`a total of ${score} points`}
 
             </p>
             <div className={ styles.container_buttons }>

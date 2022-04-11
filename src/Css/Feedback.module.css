@@ -28,6 +28,9 @@
   border-color: rgba(240, 248, 255, 0.349);
 }
 
+.feedback_card p {
+  font-size: 22px;
+}
 .feedback_card p + p {
   margin-top: 10px;
   margin-bottom: 0px;
