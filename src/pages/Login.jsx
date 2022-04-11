@@ -11,6 +11,7 @@ import { login,
 import fetchToken from '../Services/fetchToken';
 import queryLogo from '../Css/assets/query.png';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
+import Footer from '../components/Footer';
 
 class Login extends Component {
   constructor() {
@@ -107,7 +108,7 @@ class Login extends Component {
             </div>
           </form>
         </div>
-        <footer>Todos os direitos reservados ao Main-Goup-18</footer>
+        <Footer />
       </div>
     );
   }

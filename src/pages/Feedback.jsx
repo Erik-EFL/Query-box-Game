@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import styles from '../Css/Feedback.module.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 // import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
 
@@ -98,6 +99,7 @@ class Feedback extends Component {
               </button>
             </div>
           </div>
+          <Footer />
         </main>
       </div>
     );

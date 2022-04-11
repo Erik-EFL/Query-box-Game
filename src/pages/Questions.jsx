@@ -6,7 +6,12 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
+
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+=======
 import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
+
 
 class Questions extends Component {
   constructor() {
@@ -208,6 +213,7 @@ class Questions extends Component {
               >
                 Próxima pergunta
               </button>)}
+          <Footer />
         </div>
       </div>
     );
