@@ -1,4 +1,5 @@
 import md5 from 'crypto-js/md5';
+import he from 'he';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -20,6 +21,9 @@ class Questions extends Component {
    componentDidMount = async () => {
      const { questions } = this.props;
      const { indexDQ } = this.state;
+     /*      const questionReplace = questions.map((item) => {
+
+     }); */
      this.organizeQuestions(questions[indexDQ]);
      this.startInterval();
    }
@@ -113,7 +117,9 @@ class Questions extends Component {
             className={ questionOk ? styles.incorrect_answer : styles.question }
             disabled={ btnDisabled }
           >
-            {element.incorrect}
+            {he.decode(
+              element.incorrect,
+            )}
           </button>
         );
       }
@@ -127,7 +133,7 @@ class Questions extends Component {
           className={ questionOk ? styles.correct_answer : styles.question }
           disabled={ btnDisabled }
         >
-          {element.correct}
+          {he.decode(element.correct)}
         </button>
       );
     });
@@ -170,13 +176,13 @@ class Questions extends Component {
                     </p>
                   </div>
                   <div className={ styles.answers }>
-                    <p
+                    <div
                       data-testid="answer-options"
                     >
                       {organizedQuestions && (
-                        <div>{this.questionPrinter()}</div>
+                        <p>{this.questionPrinter()}</p>
                       )}
-                    </p>
+                    </div>
                   </div>
                 </div>
               )
