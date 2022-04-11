@@ -10,6 +10,7 @@ import { login,
   timerAction } from '../redux/actions/actions';
 import fetchToken from '../Services/fetchToken';
 import queryLogo from '../Css/assets/query.png';
+import { questionDataThunk } from '../redux/actions/actionQuestions';
 
 class Login extends Component {
   constructor() {
@@ -21,7 +22,7 @@ class Login extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
     const { dispatchScore, questionResponded, dispatchTime } = this.props;
     const time = 30;
     dispatchScore(0, 0);
@@ -48,11 +49,12 @@ class Login extends Component {
   };
 
   handleClick = async () => {
-    const { user, history, token } = this.props;
+    const { user, history, token, receiveQuestions } = this.props;
     const { email, nome } = this.state;
-    const tokenAPI = await fetchToken();
     user(email, nome);
-    token(tokenAPI);
+    const tokenAPI = await fetchToken();
+    await token(tokenAPI);
+    await receiveQuestions();
     history.push('/questions');
   };
 
@@ -114,6 +116,7 @@ class Login extends Component {
 const mapDispatchToProps = (dispatch) => ({
   user: (gravatarEmail, name) => dispatch(login(gravatarEmail, name)),
   token: (tokenAPI) => dispatch(tokenLogin(tokenAPI)),
+  receiveQuestions: () => dispatch(questionDataThunk()),
   dispatchScore: (score, assertions) => dispatch(questionPoints(score, assertions)),
   questionResponded: (bool) => dispatch(questionDone(bool)),
   dispatchTime: (time) => dispatch(timerAction(time)),

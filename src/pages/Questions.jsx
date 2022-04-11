@@ -2,7 +2,6 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { questionDataThunk } from '../redux/actions/actionQuestions';
 import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
@@ -13,26 +12,25 @@ class Questions extends Component {
     super();
     this.state = {
       indexDQ: 0,
-      organize: true,
       feedbackRedirect: false,
+      btnDisabled: false,
     };
   }
 
    componentDidMount = async () => {
-     const { receiveQuestions } = this.props;
-     receiveQuestions();
+     const { questions } = this.props;
+     const { indexDQ } = this.state;
+     this.organizeQuestions(questions[indexDQ]);
      this.startInterval();
    }
 
    organizeQuestions = (question) => {
-     const { organize } = this.state;
      const wrong = question.incorrect_answers;
      const incorrects = wrong.map((incorrect) => ({ incorrect }));
      const correct = [{ correct: question.correct_answer }];
-     const result = this.shuffle([...correct, ...incorrects]);
-     if (organize) {
-       this.setState({ organizedQuestions: result, organize: false });
-     }
+     const list = [...correct, ...incorrects];
+     const newList = list.sort(() => Math.random() - 0.5);
+     this.setState({ organizedQuestions: newList });
    }
 
    startInterval = () => {
@@ -43,8 +41,7 @@ class Questions extends Component {
 
   startWatch = () => {
     const { interval } = this.state;
-    const { questionResponded, timerQuestion, dispatchTime } = this.props;
-    const { questionOk } = this.props;
+    const { questionResponded, timerQuestion, dispatchTime, questionOk } = this.props;
     if (timerQuestion > 0 && questionOk === false) {
       const newTime = timerQuestion - 1;
       dispatchTime(newTime);
@@ -63,8 +60,8 @@ class Questions extends Component {
      questionResponded(false);
      const { indexDQ } = this.state;
      const valorNovo = indexDQ + 1;
-     this.setState({ indexDQ: valorNovo, organize: true, btnDisabled: false },
-       this.organizeQuestions(questions[indexDQ]));
+     this.organizeQuestions(questions[valorNovo]);
+     this.setState({ indexDQ: valorNovo, btnDisabled: false });
      const questionsLimit = 3;
      if (indexDQ === questionsLimit) {
        this.setState({ feedbackRedirect: true });
@@ -77,8 +74,6 @@ class Questions extends Component {
      clearInterval(interval);
      history.push('/feedback');
    }
-
-  randomAlternatives = () => Math.floor(Math.random() * Number('1000')) ;
 
   handleClickAnswer = ({ target }) => {
     this.setState({ btnDisabled: true });
@@ -109,7 +104,6 @@ class Questions extends Component {
     const { organizedQuestions, btnDisabled } = this.state;
     return organizedQuestions.map((element, index) => {
       if (element.incorrect) {
-        console.log(index);
         return (
           <button
             key={ element.incorrect }
@@ -145,14 +139,6 @@ class Questions extends Component {
     return gravatarUrl;
   }
 
-  shuffle(a) {
-    for (let i = a.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
-
   render() {
     const { indexDQ, feedbackRedirect, organizedQuestions } = this.state;
     const { questions, questionOk } = this.props;
@@ -183,7 +169,6 @@ class Questions extends Component {
                     <p
                       data-testid="answer-options"
                     >
-                      {this.organizeQuestions(questions[indexDQ])}
                       {organizedQuestions && (
                         <div>{this.questionPrinter()}</div>
                       )}
@@ -228,7 +213,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  receiveQuestions: () => dispatch(questionDataThunk()),
   questionResponded: (bool) => dispatch(questionDone(bool)),
   dispatchScore: (score, assertions) => dispatch(questionPoints(score, assertions)),
   dispatchTime: (time) => dispatch(timerAction(time)),
