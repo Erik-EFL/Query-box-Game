@@ -75,7 +75,7 @@ class Feedback extends Component {
               data-testid="feedback-total-score"
             >
 
-              {`a total of ${score} points`}
+              {`A total of ${score} points`}
 
             </p>
             <div className={ styles.container_buttons }>
