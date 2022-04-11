@@ -176,13 +176,13 @@ class Questions extends Component {
                     </p>
                   </div>
                   <div className={ styles.answers }>
-                    <p
+                    <div
                       data-testid="answer-options"
                     >
                       {organizedQuestions && (
-                        <div>{this.questionPrinter()}</div>
+                        <p>{this.questionPrinter()}</p>
                       )}
-                    </p>
+                    </div>
                   </div>
                 </div>
               )
