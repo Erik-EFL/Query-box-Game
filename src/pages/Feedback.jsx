@@ -65,18 +65,19 @@ class Feedback extends Component {
                 </h2>
               )}
             <hr />
-            <p
-              data-testid="feedback-total-question"
-            >
-              {`You got ${assertions} questions right!`}
-
+            <p>
+              You got
+              {' '}
+              <span data-testid="feedback-total-question">{assertions}</span>
+              {' '}
+              questions right!
             </p>
-            <p
-              data-testid="feedback-total-score"
-            >
-
-              {`A total of ${score} points`}
-
+            <p>
+              A total of
+              {' '}
+              <span data-testid="feedback-total-score">{score}</span>
+              {' '}
+              points
             </p>
             <div className={ styles.container_buttons }>
               <button
