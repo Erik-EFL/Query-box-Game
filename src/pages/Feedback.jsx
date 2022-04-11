@@ -27,8 +27,8 @@ class Feedback extends Component {
   }
 
   saveStoreRanking = () => {
-    const { player: { email, score, name } } = this.props;
-    const gravatarLink = this.gravatarHash(email);
+    const { player: { gravatarEmail, score, name } } = this.props;
+    const gravatarLink = this.gravatarHash(gravatarEmail);
     const currentStorage = JSON.parse(localStorage.getItem('ranking'));
     const conteudo = [{
       index: 0,
@@ -66,18 +66,19 @@ class Feedback extends Component {
                 </h2>
               )}
             <hr />
-            <p
-              data-testid="feedback-total-question"
-            >
-              {`You got ${assertions} questions right!`}
-
+            <p>
+              You got
+              {' '}
+              <span data-testid="feedback-total-question">{assertions}</span>
+              {' '}
+              questions right!
             </p>
-            <p
-              data-testid="feedback-total-score"
-            >
-
-              {`A total of ${score} points`}
-
+            <p>
+              A total of
+              {' '}
+              <span data-testid="feedback-total-score">{score}</span>
+              {' '}
+              points
             </p>
             <div className={ styles.container_buttons }>
               <button
