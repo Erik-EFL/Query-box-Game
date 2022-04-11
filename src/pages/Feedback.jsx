@@ -26,8 +26,8 @@ class Feedback extends Component {
   }
 
   saveStoreRanking = () => {
-    const { player: { email, score, name } } = this.props;
-    const gravatarLink = this.gravatarHash(email);
+    const { player: { gravatarEmail, score, name } } = this.props;
+    const gravatarLink = this.gravatarHash(gravatarEmail);
     const currentStorage = JSON.parse(localStorage.getItem('ranking'));
     const conteudo = [{
       index: 0,
@@ -55,7 +55,7 @@ class Feedback extends Component {
         </Link> */}
         <Header />
         <main className={ styles.container_feedback }>
-          <div className={ styles.feedback_container }>
+          <div className={ styles.feedback_card }>
             {assertions
           && assertions >= Number('3')
               ? <h2 data-testid="feedback-text">Well Done!</h2>
@@ -68,31 +68,35 @@ class Feedback extends Component {
             <p
               data-testid="feedback-total-question"
             >
-              {assertions}
+              {`You got ${assertions} questions right!`}
 
             </p>
             <p
               data-testid="feedback-total-score"
             >
-              {score}
+
+              {`a total of ${score} points`}
 
             </p>
+            <div className={ styles.container_buttons }>
+              <button
+                className={ styles.btn }
+                type="button"
+                data-testid="btn-ranking"
+                onClick={ this.handleRanking }
+              >
+                Ranking
+              </button>
+              <button
+                className={ styles.btn }
+                type="button"
+                data-testid="btn-play-again"
+                onClick={ this.handlePlayAgain }
+              >
+                Play Again
+              </button>
+            </div>
           </div>
-          <hr />
-          <button
-            type="button"
-            data-testid="btn-ranking"
-            onClick={ this.handleRanking }
-          >
-            Ranking
-          </button>
-          <button
-            type="button"
-            data-testid="btn-play-again"
-            onClick={ this.handlePlayAgain }
-          >
-            Play Again
-          </button>
         </main>
       </div>
     );

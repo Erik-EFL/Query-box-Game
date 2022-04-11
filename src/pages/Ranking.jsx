@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import styles from '../Css/Ranking.module.css';
 // import { Link } from 'react-router-dom';
 
 class Ranking extends Component {
@@ -23,21 +23,53 @@ class Ranking extends Component {
 
   render() {
     return (
-      <div className="ranking-page">
-        <h1 data-testid="ranking-title"> Ranking </h1>
-        <button
-          type="button"
-          data-testid="btn-go-home"
-          onClick={ this.handleHome }
-        >
-          Go Home
-        </button>
+      <div className={ styles.ranking_page }>
+        <div className={ styles.header_ranking }>
+          <h1 data-testid="ranking-title"> Ranking </h1>
+          <button
+            type="button"
+            data-testid="btn-go-home"
+            onClick={ this.handleHome }
+          >
+            Go Home
+          </button>
+        </div>
         {this.rankList().map((player) => (
-          <div key={ player.index }>
-            <img src={ player.gravatar } alt={ `gravatar${player.index}` } />
-            <p data-testid={ `player-name-${player.index}` }>{player.name}</p>
-            <p data-testid={ `player-score-${player.index}` }>{player.score}</p>
-          </div>
+          <table
+            key={ player.index }
+            className={ styles.ranking_container }
+          >
+            <thead>
+              <th>Player</th>
+              <th>Escore</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td className={ styles.ranking_name }>
+                  <img
+                    src={ player.gravatar }
+                    alt={ `gravatar${player.index}` }
+
+                  />
+                  <p
+                    data-testid={ `player-name-${player.index}` }
+
+                  >
+                    {player.name}
+                  </p>
+                </td>
+                <td className={ styles.ranking_score }>
+                  <p
+                    data-testid={ `player-score-${player.index}` }
+
+                  >
+                    {player.score}
+
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         ))}
       </div>
     );
