@@ -156,13 +156,17 @@ class Questions extends Component {
                       data-testid="question-category"
                       className={ styles.titleQuestion }
                     >
-                      {questions[indexDQ].category}
+                      {questions[indexDQ].category.replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, '\'')
+                        .replace(/&eacute;/g, 'é')}
                     </h3>
                     <p
                       data-testid="question-text"
                       className={ styles.contentQuestion }
                     >
-                      {questions[indexDQ].question}
+                      {questions[indexDQ].question.replace(/&quot;/g, '"')
+                        .replace(/&#039;/g, '\'')
+                        .replace(/&eacute;/g, 'é')}
                     </p>
                   </div>
                   <div className={ styles.answers }>

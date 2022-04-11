@@ -7,26 +7,56 @@
   max-width: 900px;
 }
 
-.user_header {
-  align-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.336);
-  color: white;
-  display: flex;
-  height: 90px;
-  justify-content: space-around;
-  left: 0;
-  position: absolute;
-  width: 100%;
-}
-
-.user_image {
-  border-radius: 50%;
-  height: 60px;
-  width: 60px;
-}
-
-.feedback_container {
+.feedback_card {
   color: white;
   margin-top: 150px;
+  width: 500px;
+  height: 300px;
+  padding: 20px;
+  border: 0px solid rgb(39, 24, 73);
+  border-radius: 16px;
+  box-shadow: 4px 12px 20px 2px rgb(43, 16, 78);
+}
+
+.feedback_card h2 {
+  text-align: center;
+}
+
+.feedback_card hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-color: rgba(240, 248, 255, 0.349);
+}
+
+.feedback_card p {
+  font-size: 22px;
+}
+.feedback_card p + p {
+  margin-top: 10px;
+  margin-bottom: 0px;
+}
+
+.feedback_card .container_buttons {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  gap: 8px;
+  margin-top: 70px;
+}
+.feedback_card .container_buttons .btn {
+  border: none;
+  border-radius: 4px;
+  padding: 4px;
+  background-color: rgb(76, 3, 158);
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 4px rgb(37, 37, 37);
+  color: rgba(255, 255, 255, 0.466);
+  font-weight: 700;
+}
+
+.feedback_card .container_buttons .btn:hover {
+  background-color: white;
+  color: black;
 }

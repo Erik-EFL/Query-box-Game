@@ -1,0 +1,77 @@
+.ranking_page {
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.header_ranking {
+  display: flex;
+  max-width: 90%;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 28px 0px;
+}
+
+.ranking_container {
+  border: 3px solid rgb(39, 24, 73);
+  width: 70%;
+  border-radius: 16px;
+  margin-bottom: 15px;
+  margin: 16px auto;
+}
+
+.header_ranking button {
+  border: none;
+  border-radius: 4px;
+  padding: 4px 28px;
+  background-color: rgb(76, 3, 158);
+  outline: none;
+  cursor: pointer;
+  font-size: 16px;
+  box-shadow: 0 4px 4px rgb(37, 37, 37);
+  color: rgba(255, 255, 255, 0.466);
+  font-weight: 700;
+}
+
+.header_ranking button:hover {
+  background-color: white;
+  color: black;
+}
+
+.ranking_page h1 {
+  color: white;
+  text-align: center;
+}
+
+.ranking_container th {
+  width: 250px;
+}
+
+
+.ranking_container th {
+  border-bottom: 3px solid rgb(39, 24, 73);;
+}
+
+.ranking_container .ranking_name {
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+  padding: 8px;
+}
+
+.ranking_container .ranking_score {
+  width: 250px;
+  text-align: center;
+}
+
+.ranking_container img {
+  width: 45px;
+  border-radius: 50%;
+}
+
+.ranking_container p {
+  color: white;
+  font-size: 18px;
+}
+
