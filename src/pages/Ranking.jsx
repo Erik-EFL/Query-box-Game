@@ -40,8 +40,10 @@ class Ranking extends Component {
             className={ styles.ranking_container }
           >
             <thead>
-              <th>Player</th>
-              <th>Escore</th>
+              <tr>
+                <th>Player</th>
+                <th>Escore</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
