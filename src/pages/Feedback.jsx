@@ -26,8 +26,8 @@ class Feedback extends Component {
   }
 
   saveStoreRanking = () => {
-    const { player: { email, score, name } } = this.props;
-    const gravatarLink = this.gravatarHash(email);
+    const { player: { gravatarEmail, score, name } } = this.props;
+    const gravatarLink = this.gravatarHash(gravatarEmail);
     const currentStorage = JSON.parse(localStorage.getItem('ranking'));
     const conteudo = [{
       index: 0,
