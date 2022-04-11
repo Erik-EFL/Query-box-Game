@@ -2,10 +2,10 @@ import md5 from 'crypto-js/md5';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
+import Header from '../components/Header';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
-import Header from '../components/Header';
+import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
 
 class Questions extends Component {
   constructor() {
