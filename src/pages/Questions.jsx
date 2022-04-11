@@ -90,7 +90,9 @@ class Questions extends Component {
 
       </button>,
     );
-    botoes = this.shuffle(botoes);
+    botoes = this.shuffle(botoes).replace(/&quot;/g, '"')
+      .replace(/&#039;/g, '\'')
+      .replace(/&eacute;/g, 'é');
     return botoes;
   }
 
