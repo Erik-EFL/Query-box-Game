@@ -5,6 +5,8 @@ import {
   QUESTION_DONE,
   REQUEST_ERROR,
   TOKEN,
+  TIMER_QUESTION,
+  TIMER_INTERVAL,
 } from './actionsType';
 
 export const login = (gravatarEmail, name) => ({
@@ -37,4 +39,14 @@ export const questionDone = (bool, time) => ({
   type: QUESTION_DONE,
   responded: bool,
   time,
+});
+
+export const timerAction = (timer) => ({
+  type: TIMER_QUESTION,
+  timer,
+});
+
+export const intervalAction = (interval) => ({
+  type: TIMER_INTERVAL,
+  interval,
 });
