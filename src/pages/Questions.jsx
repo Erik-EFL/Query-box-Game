@@ -29,7 +29,7 @@ class Questions extends Component {
      const incorrects = wrong.map((incorrect) => ({ incorrect }));
      const correct = [{ correct: question.correct_answer }];
      const list = [...correct, ...incorrects];
-     const newList = list.sort(() => Math.random() - 0.5);
+     const newList = list.sort(() => Math.random() - Number('1.5'));
      this.setState({ organizedQuestions: newList });
    }
 
