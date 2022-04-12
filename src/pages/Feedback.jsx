@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import styles from '../Css/Feedback.module.css';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 // import { feedbacksMessages /* INICIAL_STATE */ } from './helpers';
 
@@ -65,18 +66,19 @@ class Feedback extends Component {
                 </h2>
               )}
             <hr />
-            <p
-              data-testid="feedback-total-question"
-            >
-              {`You got ${assertions} questions right!`}
-
+            <p>
+              You got
+              {' '}
+              <span data-testid="feedback-total-question">{assertions}</span>
+              {' '}
+              questions right!
             </p>
-            <p
-              data-testid="feedback-total-score"
-            >
-
-              {`a total of ${score} points`}
-
+            <p>
+              A total of
+              {' '}
+              <span data-testid="feedback-total-score">{score}</span>
+              {' '}
+              points
             </p>
             <div className={ styles.container_buttons }>
               <button
@@ -97,6 +99,7 @@ class Feedback extends Component {
               </button>
             </div>
           </div>
+          <Footer />
         </main>
       </div>
     );

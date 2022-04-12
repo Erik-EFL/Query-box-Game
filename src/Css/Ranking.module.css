@@ -1,77 +1,104 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .ranking_page {
+  color: rgba(255, 255, 255, 0.616);
   margin: 0 auto;
   max-width: 900px;
 }
 
-.header_ranking {
+.ranking_container {
+  align-items: center;
   display: flex;
-  max-width: 90%;
-  justify-content: space-between;
-  margin: 0 auto;
-  padding: 28px 0px;
+  flex-direction: column;
+  height: 650px;
+  overflow-y: scroll;
+  padding-top: 10px;
 }
 
-.ranking_container {
-  border: 3px solid rgb(39, 24, 73);
-  width: 70%;
+.header_ranking {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 90%;
+  padding: 28px 0;
+}
+
+.ranking_table {
+  border: 3px solid rgb(67, 35, 141);
   border-radius: 16px;
-  margin-bottom: 15px;
   margin: 16px auto;
+  margin-bottom: 15px;
+  width: 70%;
 }
 
 .header_ranking button {
+  background-color: rgb(76, 3, 158);
   border: none;
   border-radius: 4px;
-  padding: 4px 28px;
-  background-color: rgb(76, 3, 158);
-  outline: none;
-  cursor: pointer;
-  font-size: 16px;
   box-shadow: 0 4px 4px rgb(37, 37, 37);
   color: rgba(255, 255, 255, 0.466);
+  cursor: pointer;
+  font-size: 16px;
   font-weight: 700;
+  outline: none;
+  padding: 4px 28px;
 }
 
-.header_ranking button:hover {
+.ranking_table button:hover {
   background-color: white;
   color: black;
 }
 
-.ranking_page h1 {
+.ranking_table h1 {
   color: white;
   text-align: center;
 }
 
-.ranking_container th {
+.ranking_table th {
+  border-bottom: 3px solid rgb(39, 24, 73);
   width: 250px;
 }
 
-
-.ranking_container th {
-  border-bottom: 3px solid rgb(39, 24, 73);;
-}
-
-.ranking_container .ranking_name {
-  width: 250px;
-  display: flex;
-  justify-content: space-between;
+.ranking_table .ranking_name {
   align-items: center;
-  align-content: center;
+  display: flex;
+  gap: 10px;
+  justify-content: flex-start;
   padding: 8px;
+  width: 100%;
 }
 
-.ranking_container .ranking_score {
-  width: 250px;
+.ranking_table .ranking_score {
   text-align: center;
+  width: 250px;
 }
 
-.ranking_container img {
-  width: 45px;
+.ranking_table img {
   border-radius: 50%;
+  margin: 0;
+  width: 45px;
 }
 
-.ranking_container p {
+.ranking_table p {
   color: white;
   font-size: 18px;
 }
 
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  border: 1px solid rgb(67, 35, 141);
+  border-radius: 12px;
+  box-shadow: inset 0 0 2.5 rgba(0, 0, 0, 0.466);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(76, 3, 158);
+  border-radius: 12px;
+}

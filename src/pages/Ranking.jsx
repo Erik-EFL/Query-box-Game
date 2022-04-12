@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styles from '../Css/Ranking.module.css';
+import Footer from '../components/Footer';
 // import { Link } from 'react-router-dom';
 
 class Ranking extends Component {
@@ -34,47 +35,53 @@ class Ranking extends Component {
             Go Home
           </button>
         </div>
-        {this.rankList().map((player) => (
-          <table
-            key={ player.index }
-            className={ styles.ranking_container }
-          >
-            <thead>
-              <th>Player</th>
-              <th>Escore</th>
-            </thead>
-            <tbody>
-              <tr>
-                <td className={ styles.ranking_name }>
-                  <img
-                    src={ player.gravatar }
-                    alt={ `gravatar${player.index}` }
+        <div className={ styles.ranking_container }>
+          {this.rankList().map((player) => (
+            <table
+              key={ player.index }
+              className={ styles.ranking_table }
+            >
+              <thead>
+                <tr>
+                  <th>Player</th>
+                  <th>Score</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className={ styles.ranking_name }>
+                    <img
+                      src={ player.gravatar }
+                      alt={ `gravatar${player.index}` }
 
-                  />
-                  <p
-                    data-testid={ `player-name-${player.index}` }
+                    />
+                    <p
+                      data-testid={ `player-name-${player.index}` }
+                    >
+                      {player.name}
+                    </p>
+                  </td>
+                  <td className={ styles.ranking_score }>
+                    <p
+                      data-testid={ `player-score-${player.index}` }
 
-                  >
-                    {player.name}
-                  </p>
-                </td>
-                <td className={ styles.ranking_score }>
-                  <p
-                    data-testid={ `player-score-${player.index}` }
+                    >
+                      {player.score}
 
-                  >
-                    {player.score}
-
-                  </p>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        ))}
+                    </p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          ))}
+          <Footer className="footer" />
+        </div>
       </div>
     );
   }
 }
+
+/* <a href="https://www.flaticon.com/br/icones-gratis/medalha-de-bronze" title="medalha de bronze ícones">Medalha de bronze ícones criados por Freepik - Flaticon</a> */
 
 Ranking.propTypes = {
   history: PropTypes.func,

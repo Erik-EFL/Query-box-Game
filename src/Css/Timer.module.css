@@ -14,11 +14,14 @@
 
 .timer_text {
   background-color: lightgoldenrodyellow;
-  border-radius: 3px;
+  border-radius: 50%;
   color: black;
   font-size: 24px;
   font-weight: 700;
-  margin-top: 10px;
+  height: 20px;
+  margin-left: -6px;
+  margin-top: 2px;
   position: absolute;
+  width: 20px;
   z-index: 1;
 }

@@ -1,11 +1,13 @@
 import md5 from 'crypto-js/md5';
+import he from 'he';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
+import Header from '../components/Header';
 import Timer from '../components/Timer';
 import styles from '../Css/Questions.module.css';
-import Header from '../components/Header';
+import Footer from '../components/Footer';
+import { questionDone, questionPoints, timerAction } from '../redux/actions/actions';
 
 class Questions extends Component {
   constructor() {
@@ -20,6 +22,9 @@ class Questions extends Component {
    componentDidMount = async () => {
      const { questions } = this.props;
      const { indexDQ } = this.state;
+     /*      const questionReplace = questions.map((item) => {
+
+     }); */
      this.organizeQuestions(questions[indexDQ]);
      this.startInterval();
    }
@@ -28,8 +33,8 @@ class Questions extends Component {
      const wrong = question.incorrect_answers;
      const incorrects = wrong.map((incorrect) => ({ incorrect }));
      const correct = [{ correct: question.correct_answer }];
-     const list = [...correct, ...incorrects];
-     const newList = list.sort(() => Math.random() - Number('1.5'));
+     const list = [...incorrects, ...correct];
+     const newList = list.sort(() => Math.random() - Number('0.5'));
      this.setState({ organizedQuestions: newList });
    }
 
@@ -102,18 +107,22 @@ class Questions extends Component {
   questionPrinter = () => {
     const { questionOk } = this.props;
     const { organizedQuestions, btnDisabled } = this.state;
-    return organizedQuestions.map((element, index) => {
+    let qualquer = 0;
+    return organizedQuestions.map((element) => {
       if (element.incorrect) {
+        qualquer += 1;
         return (
           <button
             key={ element.incorrect }
-            data-testid={ `wrong-answer-${index}` }
+            data-testid={ `wrong-answer-${qualquer - 1}` }
             type="button"
             onClick={ this.handleClickAnswer }
             className={ questionOk ? styles.incorrect_answer : styles.question }
             disabled={ btnDisabled }
           >
-            {element.incorrect}
+            {he.decode(
+              element.incorrect,
+            )}
           </button>
         );
       }
@@ -127,7 +136,7 @@ class Questions extends Component {
           className={ questionOk ? styles.correct_answer : styles.question }
           disabled={ btnDisabled }
         >
-          {element.correct}
+          {he.decode(element.correct)}
         </button>
       );
     });
@@ -170,11 +179,9 @@ class Questions extends Component {
                     </p>
                   </div>
                   <div className={ styles.answers }>
-                    <p
-                      data-testid="answer-options"
-                    >
+                    <p>
                       {organizedQuestions && (
-                        <div>{this.questionPrinter()}</div>
+                        <div data-testid="answer-options">{this.questionPrinter()}</div>
                       )}
                     </p>
                   </div>
@@ -202,6 +209,7 @@ class Questions extends Component {
               >
                 Próxima pergunta
               </button>)}
+          <Footer />
         </div>
       </div>
     );

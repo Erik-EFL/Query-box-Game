@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from '../Css/Login.module.css';
 import { login,
   questionDone,
@@ -11,6 +13,7 @@ import { login,
 import fetchToken from '../Services/fetchToken';
 import queryLogo from '../Css/assets/query.png';
 import { questionDataThunk } from '../redux/actions/actionQuestions';
+import Footer from '../components/Footer';
 
 class Login extends Component {
   constructor() {
@@ -71,10 +74,11 @@ class Login extends Component {
                 type="text"
                 name="nome"
                 id="nome"
-                placeholder="Nome"
+                placeholder="Name"
                 onChange={ this.handleChange }
                 data-testid="input-player-name"
               />
+              <FontAwesomeIcon icon={ faCircleUser } className={ styles.user } />
             </label>
             <label htmlFor="email" className={ styles.inputsLogin }>
               <input
@@ -82,10 +86,11 @@ class Login extends Component {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Email"
+                placeholder="E-mail"
                 onChange={ this.handleChange }
                 data-testid="input-gravatar-email"
               />
+              <FontAwesomeIcon icon={ faEnvelope } className={ styles.envelope } />
             </label>
             <div className={ styles.buttonContainer }>
               <button
@@ -107,7 +112,7 @@ class Login extends Component {
             </div>
           </form>
         </div>
-        <footer>Todos os direitos reservados ao Main-Goup-18</footer>
+        <Footer />
       </div>
     );
   }
