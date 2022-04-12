@@ -81,6 +81,8 @@ class Ranking extends Component {
   }
 }
 
+/* <a href="https://www.flaticon.com/br/icones-gratis/medalha-de-bronze" title="medalha de bronze ícones">Medalha de bronze ícones criados por Freepik - Flaticon</a> */
+
 Ranking.propTypes = {
   history: PropTypes.func,
 }.isRequired;
