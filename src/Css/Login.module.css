@@ -48,6 +48,10 @@
   width: 250px;
 }
 
+.loginEmailInput:focus, .loginNameInput:focus {
+  border: 3px solid rgb(110, 8, 226);
+}
+
 .buttonContainer {
   display: flex;
   flex-direction: column;
@@ -90,4 +94,18 @@
 .settings:hover {
   background-color: white;
   color: black;
+}
+
+.inputsLogin {
+  position: relative;
+}
+
+.envelope {
+  position: absolute;
+  right: 8px;
+}
+
+.user {
+  position: absolute;
+  right: 8px;
 }
