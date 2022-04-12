@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleUser, faEnvelope } from '@fortawesome/free-solid-svg-icons';
 import styles from '../Css/Login.module.css';
 import { login,
   questionDone,
@@ -72,10 +74,11 @@ class Login extends Component {
                 type="text"
                 name="nome"
                 id="nome"
-                placeholder="Nome"
+                placeholder="Name"
                 onChange={ this.handleChange }
                 data-testid="input-player-name"
               />
+              <FontAwesomeIcon icon={ faCircleUser } className={ styles.user } />
             </label>
             <label htmlFor="email" className={ styles.inputsLogin }>
               <input
@@ -83,10 +86,11 @@ class Login extends Component {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Email"
+                placeholder="E-mail"
                 onChange={ this.handleChange }
                 data-testid="input-gravatar-email"
               />
+              <FontAwesomeIcon icon={ faEnvelope } className={ styles.envelope } />
             </label>
             <div className={ styles.buttonContainer }>
               <button

@@ -4,7 +4,7 @@ import '../Css/Footer.module.css';
 class Footer extends Component {
   render() {
     return (
-      <footer>Todos os direitos reservados ao Main-Group-18</footer>
+      <footer> © 2022 Main-Group-18 All rights reserved </footer>
     );
   }
 }
