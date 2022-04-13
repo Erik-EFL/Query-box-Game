@@ -14,7 +14,7 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 650px;
+  height: 500px;
   overflow-y: scroll;
   padding-top: 10px;
 }
@@ -89,7 +89,7 @@
 }
 
 ::-webkit-scrollbar {
-  width: 15px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
