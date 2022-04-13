@@ -35,6 +35,7 @@
   flex-direction: column;
   justify-content: center;
   margin-bottom: 10px;
+  position: relative;
 }
 
 .loginEmailInput, .loginNameInput {
@@ -94,10 +95,6 @@
 .settings:hover {
   background-color: white;
   color: black;
-}
-
-.inputsLogin {
-  position: relative;
 }
 
 .envelope {

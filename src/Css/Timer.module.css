@@ -1,9 +1,12 @@
+@font-face {
+  font-family: alarmClock;
+  font-weight: 500;
+  src: url('../Css/assets/alarmClock.ttf') format('truetype');
+}
+
 .timer_container {
-  align-items: center;
-  display: flex;
   height: 100px;
-  justify-content: center;
-  width: 100px;
+  width: 150px;
 }
 
 .timer_icon {
@@ -13,14 +16,14 @@
 }
 
 .timer_text {
-  background-color: lightgoldenrodyellow;
   border-radius: 50%;
-  color: black;
-  font-size: 24px;
+  color: #754c24;
+  font-family: alarmClock , Verdana , sans-serif;
+  font-size: 30px;
   font-weight: 700;
   height: 20px;
-  margin-left: -6px;
-  margin-top: 2px;
+  margin-left: 26px;
+  margin-top: 38px;
   position: absolute;
   width: 20px;
   z-index: 1;
