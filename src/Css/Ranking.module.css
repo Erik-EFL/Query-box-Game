@@ -35,6 +35,15 @@
   width: 70%;
 }
 
+.ranking_number {
+  align-items: center;
+  display: flex;
+  font-weight: 700;
+  height: 45px;
+  justify-content: center;
+  width: 45px;
+}
+
 .header_ranking button {
   background-color: rgb(76, 3, 158);
   border: none;

@@ -69,6 +69,7 @@
   color: white;
   height: 70px;
   margin-bottom: 5px;
+  transition: 300ms;
   width: 100%;
 }
 
@@ -78,6 +79,7 @@
   border-radius: 8px;
   height: 70px;
   margin-bottom: 5px;
+  transition: 300ms;
   width: 100%;
 }
 

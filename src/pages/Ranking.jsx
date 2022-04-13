@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import styles from '../Css/Ranking.module.css';
 import Footer from '../components/Footer';
 // import { Link } from 'react-router-dom';
+import goldMedal from '../Css/assets/medalha-de-ouro.png';
+import silverMedal from '../Css/assets/medalha-de-prata.png';
+import bronzeMedal from '../Css/assets/medalha-de-bronze.png';
 
 class Ranking extends Component {
   handleHome = () => {
@@ -22,6 +25,20 @@ class Ranking extends Component {
     return rank;
   }
 
+  medalSwitch = (score, index) => {
+    const rank = this.rankList();
+    switch (score) {
+    case rank[0].score:
+      return (<img src={ goldMedal } alt="gold-medal" />);
+    case rank[1].score:
+      return (<img src={ silverMedal } alt="silver-medal" />);
+    case rank[2].score:
+      return (<img src={ bronzeMedal } alt="bronze-medal" />);
+    default:
+      return (<span className={ styles.ranking_number }>{`${index}°`}</span>);
+    }
+  }
+
   render() {
     return (
       <div className={ styles.ranking_page }>
@@ -36,7 +53,7 @@ class Ranking extends Component {
           </button>
         </div>
         <div className={ styles.ranking_container }>
-          {this.rankList().map((player) => (
+          {this.rankList().map((player, index) => (
             <table
               key={ player.index }
               className={ styles.ranking_table }
@@ -55,6 +72,7 @@ class Ranking extends Component {
                       alt={ `gravatar${player.index}` }
 
                     />
+                    {this.medalSwitch(player.score, index + 1)}
                     <p
                       data-testid={ `player-name-${player.index}` }
                     >
@@ -64,10 +82,8 @@ class Ranking extends Component {
                   <td className={ styles.ranking_score }>
                     <p
                       data-testid={ `player-score-${player.index}` }
-
                     >
                       {player.score}
-
                     </p>
                   </td>
                 </tr>
