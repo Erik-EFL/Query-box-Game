@@ -11,6 +11,11 @@
   width: 100%;
 }
 
+.logo {
+  width: 100px;
+  margin-left: -50px;
+}
+
 .user_image {
   border-radius: 50%;
   height: 60px;
@@ -23,6 +28,15 @@
   column-gap: 15px;
   display: flex;
   margin-right: -30px;
+}
+
+.player_info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.player_info p {
+  margin-left: 15px;
 }
 
 .player_container {
