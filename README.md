@@ -58,14 +58,20 @@
 
     Para clonar o repositório do projeto, basta seguir os seguintes passos:
 
-    git clone git@github.com:Erik-EFL/Query-box-Game.git
-
+    Faça o fork do repositório:
+    ```
+    Tutorial no link https://github.com/UNIVALI-LITE/Portugol-Studio/wiki/Fazendo-um-Fork-do-reposit%C3%B3rio
+    ```
+    Clone o repositório:
+    ```
+    git clone git@github.com:"SeuNomeNoGitHub"/Query-box-Game.git
+    ```
     Apos ter o repositório clonado em sua maquina, basta executar o comando:
-
+    ```
     cd Query-box-Game
-
+    ```
     E então executar os comando para que a aplicação funcione:
-
+    ```
     npm install
     npm start
 
