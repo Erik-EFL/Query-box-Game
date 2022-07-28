@@ -136,7 +136,9 @@ Jogo de perguntas baseado no jogo [Trivia](https://en.wikipedia.org/wiki/Trivia_
 * Configurações para selecionar o nível de dificuldade do jogo
 * Configurações para selecionar o tipo de pergunta
 * Configurações para selecionar o gênero da pergunta
+* Efetuar o deploy do projeto no GitHub Pages ou em outra plataforma
 
+  <br />
   </details>
   <details>
     <summary>Para a Segurança</summary>
