@@ -155,19 +155,27 @@ Jogo de perguntas baseado no jogo [Trivia](https://en.wikipedia.org/wiki/Trivia_
 <br />
 <table>
   <tr>
-    <td align="center">
-      <a href="https://github.com/helderme">
-        <img src="https://avatars.githubusercontent.com/u/93664259?v=4" width="100px;" alt="Foto de Tati Alves no GitHub"/><br>
-        <sub>
-          <b>Helder Medeiros</b>
-        </sub>
-      </a>
-    </td>
-    <td align="center">
+      <td align="center">
       <a href="https://github.com/andreluialves">
         <img src="https://avatars.githubusercontent.com/u/43766839?v=4" width="100px;" alt="Foto de Tati Alves no GitHub"/><br>
         <sub>
           <b>André Luiz</b>
+        </sub>
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/erik-efl">
+        <img src="https://avatars.githubusercontent.com/u/56979306?s=400&u=526ff856d28fc3ce1926f51be6aa1f947156b8bb&v=4" width="100px;" alt="Foto de Erik Ferreida de Lima"/><br>
+        <sub>
+          <b>Erik Lima</b>
+        </sub>
+      </a>
+    </td>
+        <td align="center">
+      <a href="https://github.com/helderme">
+        <img src="https://avatars.githubusercontent.com/u/93664259?v=4" width="100px;" alt="Foto de Tati Alves no GitHub"/><br>
+        <sub>
+          <b>Helder Medeiros</b>
         </sub>
       </a>
     </td>
