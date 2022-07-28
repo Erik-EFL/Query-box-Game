@@ -200,6 +200,17 @@ Jogo de perguntas baseado no jogo [Trivia](https://en.wikipedia.org/wiki/Trivia_
 
 <br />
 
+##
+
+## ⚙️ Status do Projeto 🛠️
+
+  ```js
+    let projeto {
+      "status": "Em desenvolvimento"
+    }
+  ```
+##
+
 ### ©️ Aviso de direitos autorais
 
 Desenvolvemos esse projeto para propósitos de aprendizagem, todo o código e documentação são de nossa autoria e os direitos pertencem exclusivamente a nós. É permitido baixar ou clonar o repositório para fins de estudo. Contudo, não é permitido publicar cópias totais ou parciais. Este aviso não cobre bibliotecas e dependências, estas estão sujeitas a suas respectivas licenças.
